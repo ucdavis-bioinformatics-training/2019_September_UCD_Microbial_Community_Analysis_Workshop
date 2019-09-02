@@ -2,10 +2,10 @@ All documentation for the workshop is best viewed from the github.io pages
 
 [Documentation](https://ucdavis-bioinformatics-training.github.io/2019_September_UCD_Microbial_Community_Analysis_Workshop/)
 
-Bioinformatics: Microbial Community Analysis (amplicon community profiling) @ UC Davis
-Sept. 3, 2019, 9 a.m. - Sept. 6, 2019, 4:30 p.m.
-Organizer - Bioinformatics Core
-Contact - UC Davis Bioinformatics Core, training.bioinformatics@ucdavis.edu
+Bioinformatics: Microbial Community Analysis (amplicon community profiling) @ UC Davis  
+Sept. 3, 2019, 9 a.m. - Sept. 6, 2019, 4:30 p.m.  
+Organizer - Bioinformatics Core  
+Contact - UC Davis Bioinformatics Core, training.bioinformatics@ucdavis.edu  
 
 High-throughput sequencing (HTS) of entire microbial communities has enabled rapid advancement in our understanding of the composition and functional content of their involvment in climate change, environmental pollution, human health, biotechnology, etc. Using these data we are able to achieve the most complete picture of the taxonomic (i.e., what organisms are there) and functional (i.e., what are those organisms are doing) composition of microbial communities, making it possible to perform investigations that include organisms that were previously intractable with culturing-based methods. With HTS, all organisms contained in an environmental sample are sequenced in a culture-independent manner, using either amplicon based methods to investigate the taxonomic content or whole-genome/transcriptome shotgun-based methods to investigate both the taxonomic and functional content of the sampled community.
 
