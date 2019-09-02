@@ -1,15 +1,59 @@
 theme: jekyll-theme-minimal
-title: 'UC Davis Bioinformatics Workshop Base Template'
+title: 'UC Davis Bioinformatics Core August 2019 Microbial Community Analysis Workshop @ UCD'
 show_downloads: True
 google_analytics: True
 navigation:
   - title: Home
     url: /
-
-  - heading: Introduction
+  - heading: Introduction and Lectures
   - title: Intro to the Workshop and Core
     url: welcome
-  - title: Examples of Markdown Formatting
-    url: examples
+  - title: What is Bioinformatics?
+    url: pdfs/Genomics_a_perspective.pdf
+  - title: Experimental Design and Cost Estimation
+    url: pdfs/MCA_Experimental_Design.pdf
 
+  - heading: Introduction to Command-Line and the Cluster
+  - title: Logging in and Transferring Files
+    url: cli/logging-in
+  - title: Intro to Command-Line
+    url: cli/command-line-intro
+  - title: Advanced Command-Line
+    url: cli/advanced-command-line
+  - title: Running jobs on the Cluster and using modules
+    url: cli/cluster
 
+  - heading: Intro to R and Rstudio
+  - title: Getting Started
+    url: intro2R/RStudio
+  - title: Intro to R
+    url: intro2R/Intro2R
+  - title: Prepare Data in R (extra)
+    url: intro2R/data_in_R_prepare
+  - title: Data in R (extra)
+    url: intro2R/data_in_R
+
+  - heading: Data Reduction
+  - title: Files and Filetypes for RNA-Seq
+    url: data_reduction/filetypes
+
+  - heading: Differential Expression and Pathway Analysis
+  - title: Prepare Differential Expression Analysis
+    url: differential_expression/de_analysis_prepare
+
+  - heading: Support
+  - title: Cheat Sheets
+    url: cheatSheetIndex
+  - title: Software and Links
+    url: software
+  - title: Scripts
+    url: script_links
+  - heading: ETC
+  - title: Closing thoughts
+    url: closing
+  - title: Workshop Photos
+    url: photos/photos
+  - title: Github
+    url: https://github.com/ucdavis-bioinformatics-training/2019_September_UCD_Microbial_Community_Analysis_Workshop
+  - title: Biocore website
+    url: http://bioinformatics.ucdavis.edu

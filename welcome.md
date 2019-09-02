@@ -61,17 +61,19 @@ http://bioinformatics.ucdavis.edu/training/events/
 
 ## Computing Cluster
 
-Course will be conducted on our servers and compute cluster .  
-tadpole.genomecenter.ucdavis.edu
+Course will be conducted using the Bioinformatics Core's servers and compute cluster __tadpole.genomecenter.ucdavis.edu__
 
 Everyone should get an account.  
 https://computing.genomecenter.ucdavis.edu	 
 
-Request an account -> sponsor "Bioinformatics Core Workshop"
-
-If you already have an account on our systems, then please tell us your username.
-
-We will be using our workshop login node name tadpole: tadpole.genomecenter.ucdavis.edu  
+1. Request an account -> sponsor "Bioinformatics Core Workshop". **If you already have an account on our systems, then please tell us your username**.
+  *  Fill in the remainder of the information, select any username you wish
+2. Confirm your email address in your email application
+3. I will need to approve your account.
+4. You will get an email to set your password
+5. Test your account, in terminal
+    ssh yourusername@tadpole.genomecenter.ucdavis.edu
+  * Use the username you chose.
 
 Cluster usage will be under the slurm reservation  ‘workshop’
 
