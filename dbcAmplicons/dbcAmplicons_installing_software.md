@@ -170,9 +170,8 @@ module load java/jdk1.8
 export RDP_PATH=/share/workshop/$USER/mca_example/src/RDPTools
 module load anaconda2
 . /software/anaconda2/4.5.12/lssc0-linux/etc/profile.d/conda.sh
-conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv
+conda activate /share/workshop/$USER/mca_example/src/dbcA_virtualenv
 </div>
----
 
 At any time you can initiate the environment for dbcAmplicons using.
 
