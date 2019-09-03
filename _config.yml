@@ -32,7 +32,7 @@ navigation:
     url: intro2R/data_in_R_fixed
   - heading: dbcAmplicons
   - title: Installing Software
-    url: dbcAmplicons/dbcAmplicons_installing_software.md)
+    url: dbcAmplicons/dbcAmplicons_installing_software.md
   - title: dbcAmplicons: Amplicons talk
     url: dbcAmplicons/dbcAmplicons_Amplicons.pdf
   - title: dbcAmplicons: Bioinformatics talk
