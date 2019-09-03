@@ -174,8 +174,8 @@ conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv
 
 At any time you can initiate the environment for dbcAmplicons using.
 
-  source /share/workshop/$USER/mca_example/src/dbcA_profile
+    source /share/workshop/$USER/mca_example/src/dbcA_profile
 
 and you can specifically deactivate the conda environment with
 
-  conda deactivate
+    conda deactivate
