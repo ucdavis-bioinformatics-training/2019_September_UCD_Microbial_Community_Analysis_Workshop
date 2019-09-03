@@ -5,6 +5,7 @@ google_analytics: True
 navigation:
   - title: Home
     url: /
+
   - heading: Introduction and Lectures
   - title: Intro to the Workshop and Core
     url: welcome
@@ -25,7 +26,7 @@ navigation:
 
   - heading: Intro to R and Rstudio
   - title: Getting Started
-    url: intro2R/RStudio
+    url: intro2R/RStudio_fixed
   - title: Intro to R
     url: intro2R/Intro2R_fixed
   - title: Prepare Data in R (extra)
@@ -48,6 +49,7 @@ navigation:
     url: software
   - title: Scripts
     url: script_links
+
   - heading: ETC
   - title: Closing thoughts
     url: closing
