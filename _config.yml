@@ -1,10 +1,11 @@
 theme: jekyll-theme-minimal
-title: 'UC Davis Bioinformatics Core August 2019 Microbial Community Analysis Workshop @ UCD'
+title: 'UC Davis Bioinformatics Core August 2019 Microbial Community Analysis Workshop'
 show_downloads: True
 google_analytics: True
 navigation:
   - title: Home
     url: /
+
   - heading: Introduction and Lectures
   - title: Intro to the Workshop and Core
     url: welcome
@@ -12,6 +13,7 @@ navigation:
     url: pdfs/Genomics_a_perspective_Sept2_2019.pdf
   - title: Experimental Design and Cost Estimation
     url: pdfs/MCA_Experimental_Design.pdf
+
   - heading: Introduction to Command-Line and the Cluster
   - title: Logging in and Transferring Files
     url: cli/logging-in
@@ -21,6 +23,7 @@ navigation:
     url: cli/advanced-command-line
   - title: Running jobs on the Cluster and using modules
     url: cli/cluster
+
   - heading: Intro to R and Rstudio
   - title: Getting Started
     url: intro2R/RStudio
@@ -30,6 +33,7 @@ navigation:
     url: intro2R/data_in_R_prepare_fixed
   - title: Data in R (extra)
     url: intro2R/data_in_R_fixed
+
   - heading: dbcAmplicons
   - title: Installing Software
     url: dbcAmplicons/dbcAmplicons_installing_software.md
@@ -37,24 +41,19 @@ navigation:
     url: dbcAmplicons/dbcAmplicons_Amplicons.pdf
   - title: dbcAmplicons - Bioinformatics talk
     url: dbcAmplicons/dbcAmplicons_Bioinformatics.pdf
+  - title: Dataset Metadata
+  - url: dbcAmplicons/metadata_links
   - title: dbcAmplicons - Data processing, 16S V1-V3
     url: dbcAmplicons/dbcAmplicons_commands.md
   - title: dbcAmplicons - Data processing, other amplicons
     url: dbcAmplicons/dbcAmplicons_commands_all_amplicons.md
-  - heading: Dataset Metadata
-  - title: Sample Submission
-    url: dbcAmplicons/metadata/slashpilesamplesheet.xlsx
-  -title: Barcode Table
-    url: dbcAmplicons/metadata/dbcBarcodeLookupTable.txt
-  -title: Primer Table
-    url: dbcAmplicons/metadata/PrimerTable.txt
-  -title: Sample Sheet
-    url: dbcAmplicons/metadata/workshopSamplesheet.txt
+
   - heading: Microbial Community Analysis in R
   - title: Prepare MCA Analysis
     url: MCA_Workshop_R/prepare_phyloseq.md
   - title: MCA Analysis in phyloseq
     url: MCA_Workshop_R/phyloseq.md
+
   - heading: Support
   - title: Cheat Sheets
     url: cheatSheetIndex
@@ -62,6 +61,7 @@ navigation:
     url: software
   - title: Scripts
     url: script_links
+
   - heading: ETC
   - title: Closing thoughts
     url: closing
