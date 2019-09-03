@@ -29,8 +29,9 @@ Not all topics regarding microbial community analysis will be covered nor all po
 ### Industry Sponsors
 
 |:------|:------|------|
-| Tuesday | <img src="base_figures/10x.png" alt="10x genomics" width="150px"/> |    |  
-| Wednesday |  <img src="base_figures/illumina.png" alt="illumina" width="150px"/> |    |  
+| Tuesday | [<img src="base_figures/10x.png" alt="10x genomics" width="150px"/>](https://10xgenomics.com) |    |  
+| Wednesday |  [<img src="base_figures/illumina.png" alt="illumina" width="150px"/>](https://illumina.com) |    |
+| Thursday | [Host Microbe Systems Biology Core](https://health.ucdavis.edu/medmicro/hmsbcore/)
 
 ### FAQ
 
