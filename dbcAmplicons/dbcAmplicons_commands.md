@@ -6,7 +6,7 @@ This document assumes [Dataset and Metadata](./dbcAmplicons/data_metadata_link) 
 Lets login and request an interactive session on the clusters
 
 	cd /share/workshop/$USER/mca_example
-	srun -t 08:00:00 -c 4 -n 1 --mem 8000 --account workshop --reservation workshop --pty /bin/bash
+	srun -t 08:00:00 -c 4 -n 1 --mem 8000 --partition production --account workshop --reservation workshop --pty /bin/bash
 
 After getting onto a cluster node, source our dbcAmplicons environment
 
