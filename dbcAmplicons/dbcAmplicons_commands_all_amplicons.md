@@ -42,7 +42,7 @@ If all this is correct, we are ready to begin.
 **1\.** First lets validate our input files:
 
 	dbcAmplicons validate -h
-	dbcAmplicons validate -B metadata/dbcBarcodeLookupTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt
+	dbcAmplicons validate -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt
 
 Once we are sure our input files are ok
 
@@ -51,7 +51,7 @@ Once we are sure our input files are ok
 	dbcAmplicons preprocess -h
 
 First lets test preprocessing
-	dbcAmplicons preprocess -B metadata/dbcBarcodeLookupTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -1 Illumina_Reads/Slashpile_only_R1.fastq.gz --test > preprocess.log
+	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -1 Illumina_Reads/Slashpile_only_R1.fastq.gz --test > preprocess.log
 
 View preprocess.log and the file Identified_barcodes.txt, make sure the results make sense
 
@@ -60,7 +60,7 @@ View preprocess.log and the file Identified_barcodes.txt, make sure the results 
 
 Run all reads
 
-	dbcAmplicons preprocess -B metadata/dbcBarcodeLookupTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz > preprocess.log
+	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz > preprocess.log
 
 	cat preprocess.log
 	cat Identified_Barcodes.txt
@@ -69,8 +69,8 @@ Run all reads
 
 	dbcAmplicons join -h
 
-	dbcAmplicons join -t 4 -O Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3 -1 Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3_R1.fastq.gz > join-16sV1V3.log
-	cat join-16sV1V3.log
+	dbcAmplicons join -t 4 -O Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5 -1 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R1.fastq.gz > join-16sV3V5.log
+	cat join-16sV3V5.log
 
 	dbcAmplicons join -t 4 -O Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5 -1 Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5_R1.fastq.gz > join-16sV4V5.log
 	cat join-16sV4V5.log
@@ -88,7 +88,7 @@ Run all reads
 
 	dbcAmplicons classify -h
 
-	dbcAmplicons classify -p 4 --gene 16srrna -U Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3.extendedFrags.fastq.gz -O Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3
+	dbcAmplicons classify -p 4 --gene 16srrna -U Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.extendedFrags.fastq.gz -O Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5
 
 	dbcAmplicons classify -p 4 --gene 16srrna -U Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5.extendedFrags.fastq.gz -O Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5
 
@@ -106,8 +106,8 @@ Run all reads
 
 	dbcAmplicons abundance -h
 
-	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV1V3 -F Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3.fixrank --biom > abundance.16sV1V3.log
-	cat abundance.16sV1V3.log
+	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV3V5 -F Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.fixrank --biom > abundance.16sV3V5.log
+	cat abundance.16sV3V5.log
 
 	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV4V5 -F Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5.fixrank --biom  > abundance.16sV4V5.log
 	cat abundance.16sV4V5.log
@@ -124,7 +124,7 @@ Run all reads
 **6\.** Split Reads by samples, for downstream processing in another application (post preprocessing/merging), or for submission to the SRA.
 
 	splitReadsBySample.py -h
-	splitReadsBySample.py -O SplitBySample/16sV1V3 -1 Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3_R1.fastq.gz -2 Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3_R2.fastq.gz
+	splitReadsBySample.py -O SplitBySample/16sV3V5 -1 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R1.fastq.gz -2 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R2.fastq.gz
 
 	splitReadsBySample.py -h
 	splitReadsBySample.py -O SplitBySample/16sV4V5 -1 Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5_R1.fastq.gz -2 Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5_R2.fastq.gz

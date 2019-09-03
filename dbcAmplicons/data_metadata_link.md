@@ -21,5 +21,21 @@ Lets login and navigate to our directory
 
 		cd  
 		cd /share/workshop/$USER/mca_example
+		cp -r /share/biocore/workshops/2019_Sept_MCA/Illumina_Reads /share/workshop/$USER/mca_example/.
 
 Take a look at the files ... what is inside the Illumina_Reads folder?
+
+Lets look at the first few reads of each file, below is an example line to view the first file.
+
+	zless Illumina_Reads/MCAWorkshopDataset_S1_L001_R1_001.fastq.gz | head
+
+Look at the head of the other files.
+
+**2\.** Lets copy the workshop metadata into our workshop directory.
+
+Next lets make a metadata directory and transfer our barcode, primer and sample sheet to their
+
+	cd /share/workshop/$USER/mca_example
+	cp -r /share/biocore/workshops/2019_Sept_MCA/metadata /share/workshop/$USER/mca_example/.
+
+If all this is correct, we are ready to begin.

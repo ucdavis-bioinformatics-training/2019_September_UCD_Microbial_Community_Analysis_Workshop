@@ -1,32 +1,22 @@
 Running the dbcAmplicons pipeline
 ===============================================
 
-This document assumes [dbcAmplicons installing software](./dbcAmplicons_installing_software.md) has been completed.
-
-**IF** for some reason it didn't finish, is corrupted or you missed the session, you can use my instance. Create the file /share/workshop/$USER/mca_example/src edit the lines to use my folders
-
-<div class="script">export PATH=/share/workshop/msettles/mca_example/bin:$PATH
-module load java/jdk1.8
-export RDP_PATH=/share/workshop/msettles/mca_example/src/RDPTools
-module load anaconda2
-. /software/anaconda2/4.5.12/lssc0-linux/etc/profile.d/conda.sh
-conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv
-</div>
+This document assumes [Dataset and Metadata](./dbcAmplicons/data_metadata_link) has been completed.
 
 Lets login and request an interactive session on the clusters
 
 	cd /share/workshop/$USER/mca_example
 	srun -t 08:00:00 -c 4 -n 1 --mem 8000 --account workshop --reservation workshop --pty /bin/bash
 
-After getting onto a cluster node,
+After getting onto a cluster node, source our dbcAmplicons environment
 
 	source /share/workshop/$USER/mca_example/src/dbcA_profile
 
-The goal is to process raw Illumina sequence reads to abundance tables for the 16sV1-V3 amplicon set. To do so we first need to
+The goal is to process raw Illumina sequence reads to abundance tables for the 16sV3-V5 amplicon set. To do so we first need to
 
-1. have all the software installed and working, and
-2. have the Illumina sequence data within our project folder (mca_example).
-3. We then need to prepare the input metadata files: barcodes, primers, and samples.
+1. Have all the software installed and working, and
+2. Have the Illumina sequence data within our project folder (mca_example).
+3. Have the input metadata files: barcodes, primers, and samples.
 4. Perform amplicon processing with dbcAmplicons includes the following steps: 				 
 		1. preprocessing
 		2. join
@@ -35,14 +25,14 @@ The goal is to process raw Illumina sequence reads to abundance tables for the 1
 
 <img src="Workflow.png" alt="workflow" width="600px"/>
 
-Today we'll process at least one amplicon set to completion, should there be extra time, begin processing the others, or later you can process the others as practice.
+Today we'll process at least one amplicon set to completion.
 
 Change directory into the workshops space
 
 	cd /share/workshop/$USER/mca_example
-	ls --color
+	ls
 
-you should see 3 directories: bin, Illumina_Reads and src
+you should see 4 directories: bin, Illumina_Reads, metadata and src
 
 Lets verify the software is accessible
 
@@ -50,30 +40,13 @@ Lets verify the software is accessible
 
 you should see the version info for dbcAmplicons, flash2 and RDP.
 
-Lets look at the first few reads of each file, below is an example line to view the first file.
-
-	zless Illumina_Reads/Slashpile_only_R1.fastq.gz | head
-
-Next lets make a metadata directory and transfer our barcode, primer and sample sheet to their
-
-	mkdir metadata
-
-We can pull down the already prepared barcode and primer tables from github
-
-	cd /share/workshop/$USER/mca_example/metadata
-	wget https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2019_April_ESALQ_Microbial_Community_Analysis/master/metadata/dbcBarcodeLookupTable.txt
-	wget https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2019_April_ESALQ_Microbial_Community_Analysis/master/metadata/PrimerTable.txt
-	wget https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2019_April_ESALQ_Microbial_Community_Analysis/master/metadata/workshopSamplesheet.txt
-
-If all this is correct, we are ready to begin.
-
 **1\.**  Lets validate our input files using dbcAmplicons Validate:
 
 Look at the help documentation first
 
 	cd /share/workshop/$USER/mca_example
 	dbcAmplicons validate -h
-	dbcAmplicons validate -B metadata/dbcBarcodeLookupTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt
+	dbcAmplicons validate -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt
 
 If there are any errors, fix them (can do so in nano) and validate again.
 
@@ -88,7 +61,7 @@ Look at the help documentation first
 First lets 'test' preprocessing, by only running the first 'batch' of reads
 
 	cd /share/workshop/$USER/mca_example
-	dbcAmplicons preprocess -B metadata/dbcBarcodeLookupTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz --test > preprocess.log
+	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz --test > preprocess.log
 
 View preprocess.log and the file Identified_barcodes.txt, make sure the results make sense.
 
@@ -100,7 +73,7 @@ Lets see what it looks like when you get the primer orientation incorrect. Try r
 Now run all reads, should talk less than 1 hour.
 
 	cd /share/workshop/$USER/mca_example
-	dbcAmplicons preprocess -B metadata/dbcBarcodeLookupTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz > preprocess.log
+	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz > preprocess.log
 
 Again view the output to make sure it makes sense
 
@@ -109,7 +82,7 @@ Again view the output to make sure it makes sense
 
 Finally, look at the output in the Slashpile.intermediate folder, how many subfolders are there? What do these correspond to? What is inside each folder? View a few reads in one of the files.
 
-**From now on we will only be performing downstream processing of the 16sV1V3 amplicon set**
+**From now on we will only be performing downstream processing of the 16sV3V5 amplicon set**
 
 **3\.** Next, lets merge/join the read pairs, should take less than 10 minutes
 
@@ -118,11 +91,11 @@ View the help documentation and run join
 	cd /share/workshop/$USER/mca_example
 	dbcAmplicons join -h
 
-	dbcAmplicons join -t 4 -O Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3 -1 Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3_R1.fastq.gz > join-16sV1V3.log
+	dbcAmplicons join -t 4 -O Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5 -1 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R1.fastq.gz > join-16sV3V5.log
 
 view the log
 
-	cat join-16sV1V3.log
+	cat join-16sV3V5.log
 
 Try changing the parameter --max-mismatch-density, first to 0.1, then to 0.5, how do they differ.
 
@@ -135,11 +108,11 @@ View the help documentation and run classify
 	cd /share/workshop/$USER/mca_example
 	dbcAmplicons classify -h
 
-	dbcAmplicons classify -p 4 --gene 16srrna -U Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3.extendedFrags.fastq.gz -O Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3
+	dbcAmplicons classify -p 4 --gene 16srrna -U Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.extendedFrags.fastq.gz -O Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5
 
 classify produces a fixrank file, view the first 6 lines of the output file
 
-	head Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3.fixrank
+	head Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.fixrank
 
 For the other amplicons what parameters in classify would need to be changed?
 
@@ -158,8 +131,8 @@ View the help documentation and generate the results. When you provide dbcAmplic
 
 	dbcAmplicons abundance -h
 
-	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV1V3 -F Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3.fixrank --biom > abundance.16sV1V3.log
-	cat abundance.16sV1V3.log
+	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV3V5 -F Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.fixrank --biom > abundance.16sV3V5.log
+	cat abundance.16sV3V5.log
 
 Try changing the -r parameter see what changes? what about the -t parameter? Once done playing rerun the above to get the final biom file for the next phase of analysis.
 
@@ -169,11 +142,11 @@ dbcAmplicons abundance command above (with --biom) produces four files: abundanc
 
 For downstream processing in another application (post preprocessing/merging), or for submission to the SRA. splitReadsBySample produces SRA compatible output (read names) for each samples. Splits the reads by sample.
 
-view the help documentation then run, placing output into the folder SplitBySample/16sV1V3
+view the help documentation then run, placing output into the folder SplitBySample/16sV3V5
 
 	cd /share/workshop/$USER/mca_example
 	splitReadsBySample.py -h
-	splitReadsBySample.py -O SplitBySample/16sV1V3 -1 Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3_R1.fastq.gz -2 Slashpile.intermediate/16sV1V3/Slashpile-16sV1V3_R2.fastq.gz
+	splitReadsBySample.py -O SplitBySample/16sV3V5 -1 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R1.fastq.gz -2 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R2.fastq.gz
 
 View the output folder, what do you see?
 

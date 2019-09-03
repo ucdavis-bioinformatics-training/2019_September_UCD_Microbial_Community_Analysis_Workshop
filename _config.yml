@@ -35,7 +35,7 @@ navigation:
     url: intro2R/data_in_R_fixed
 
   - heading: dbcAmplicons
-  - title: Installing Software
+  - title: dbcAmplicons Installing Software
     url: dbcAmplicons/dbcAmplicons_installing_software
   - title: dbcAmplicons - Amplicons talk
     url: dbcAmplicons/dbcAmplicons_Amplicons.pdf
