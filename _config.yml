@@ -62,10 +62,6 @@ navigation:
   - title: MCA Analysis in phyloseq
     url: MCA_Workshop_R/phyloseq.md
 
-  - heading: Differential Expression and Pathway Analysis
-  - title: Prepare Differential Expression Analysis
-    url: differential_expression/de_analysis_prepare
-
   - heading: Support
   - title: Cheat Sheets
     url: cheatSheetIndex
