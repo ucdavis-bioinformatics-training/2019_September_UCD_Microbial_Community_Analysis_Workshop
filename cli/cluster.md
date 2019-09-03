@@ -8,6 +8,12 @@ First, what is a cluster?
 
 The basic architecture of a compute cluster consists of a "head node", which is the computer from which a user submits jobs to run, and "compute nodes", which are a large number of computers on which the jobs can be run. It is also possible to log into a compute node and run jobs directly from there. **In general you should never run a job directly on the head node!**
 
+### Lets login to the cluster
+
+    ssh username@tadpole.genomecenter.ucdavis.edu
+
+where 'username' is replaced with your username. Press Enter.
+
 ---
 **2\.** Now, let's look at a few slurm commands.
 
