@@ -33,13 +33,13 @@ navigation:
   - heading: dbcAmplicons
   - title: Installing Software
     url: dbcAmplicons/dbcAmplicons_installing_software.md
-  - title: dbcAmplicons: Amplicons talk
+  - title: dbcAmplicons - Amplicons talk
     url: dbcAmplicons/dbcAmplicons_Amplicons.pdf
-  - title: dbcAmplicons: Bioinformatics talk
+  - title: dbcAmplicons - Bioinformatics talk
     url: dbcAmplicons/dbcAmplicons_Bioinformatics.pdf
-  - title: dbcAmplicons: Data processing, 16S V1-V3
+  - title: dbcAmplicons - Data processing, 16S V1-V3
     url: dbcAmplicons/dbcAmplicons_commands.md
-  - title: dbcAmplicons: Data processing, other amplicons
+  - title: dbcAmplicons - Data processing, other amplicons
     url: dbcAmplicons/dbcAmplicons_commands_all_amplicons.md
   - heading: Dataset Metadata
   - title: Sample Submission
