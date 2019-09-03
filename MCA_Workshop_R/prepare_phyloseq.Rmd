@@ -1,0 +1,89 @@
+---
+title: "Prepare Phyloseq"
+author: "Bioinformatics Core"
+output:
+    html_document:
+      keep_md: true
+---
+
+### Create a new RStudio project
+
+Open RStudio and create a new project, for more info see <https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects>
+
+* File > New Project > New Directory > New Project (name the new directory, Ex. Differential_Expression) and check "use packrat with this project" if present and you want to use packrat.
+
+Learn more about packrat see <https://rstudio.github.io/packrat/>
+
+We first need to make sure we have the necessary packages, phyloseq, ggplot2, gridExtra, gridR, ape, and edgeR are installed (if not install it), and then load
+
+In the R console run the following commands
+```{r setup, results='hide', warning=FALSE, error=FALSE, message=FALSE, collapse=TRUE}
+
+if (!any(rownames(installed.packages()) == "phyloseq")){
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+  BiocManager::install("phyloseq")
+}
+library(phyloseq)
+
+if (!any(rownames(installed.packages()) == "biomformat")){
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+  BiocManager::install("biomformat")
+}
+library(biomformat)
+
+if (!any(rownames(installed.packages()) == "ggplot2")){
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+  BiocManager::install("ggplot2")
+}
+library(ggplot2)
+
+if (!any(rownames(installed.packages()) == "gridExtra")){
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+  BiocManager::install("gridExtra")
+}
+library(gridExtra)
+
+if (!any(rownames(installed.packages()) == "vegan")){
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+  BiocManager::install("vegan")
+}
+library(vegan)
+
+if (!any(rownames(installed.packages()) == "edgeR")){
+  if (!requireNamespace("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+  BiocManager::install("edgeR")
+}
+library(edgeR)
+```
+
+### Download the template Markdown workshop document and open it
+
+In the R console run the following command
+```{r download2, results='hide', warning=F, error=F, message=FALSE}
+download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2019_September_UCD_Microbial_Community_Analysis_Workshop/master/MCA_Workshop_R/phyloseq.Rmd", "MCA_phyloseq.Rmd")
+```
+
+### Download the data file for the workshop document and preview/open it
+
+```{r download2, results='hide', warning=F, error=F}
+download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2019_September_UCD_Microbial_Community_Analysis_Workshop/master/MCA_Workshop_R/16sV1V3.biom", "16sV1V3.biom")
+```
+
+### Edit the file YAML portion
+
+The top YAML (YAML ain't markup language) portion of the doc tells RStudio how to parse the document.
+
+<pre><code>---
+title: "Microbial Community Analysis in R"
+author: your_name
+date: current_date
+output:
+    html_notebook: default
+    html_document: default
+---</code></pre>

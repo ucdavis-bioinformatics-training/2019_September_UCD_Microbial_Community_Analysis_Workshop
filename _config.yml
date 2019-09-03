@@ -36,7 +36,7 @@ navigation:
 
   - heading: dbcAmplicons
   - title: Installing Software
-    url: dbcAmplicons/dbcAmplicons_installing_software.md
+    url: dbcAmplicons/dbcAmplicons_installing_software
   - title: dbcAmplicons - Amplicons talk
     url: dbcAmplicons/dbcAmplicons_Amplicons.pdf
   - title: dbcAmplicons - Bioinformatics talk
@@ -44,15 +44,15 @@ navigation:
   - title: Dataset Metadata
   - url: dbcAmplicons/metadata_links
   - title: dbcAmplicons - Data processing, 16S V1-V3
-    url: dbcAmplicons/dbcAmplicons_commands.md
+    url: dbcAmplicons/dbcAmplicons_commands
   - title: dbcAmplicons - Data processing, other amplicons
-    url: dbcAmplicons/dbcAmplicons_commands_all_amplicons.md
+    url: dbcAmplicons/dbcAmplicons_commands_all_amplicons
 
   - heading: Microbial Community Analysis in R
   - title: Prepare MCA Analysis
-    url: MCA_Workshop_R/prepare_phyloseq.md
+    url: MCA_Workshop_R/prepare_phyloseq
   - title: MCA Analysis in phyloseq
-    url: MCA_Workshop_R/phyloseq.md
+    url: MCA_Workshop_R/phyloseq
 
   - heading: Support
   - title: Cheat Sheets

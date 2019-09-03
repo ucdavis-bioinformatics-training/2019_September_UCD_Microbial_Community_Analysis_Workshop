@@ -8,42 +8,15 @@ output:
 
 # Using the Phyloseq package
 
-The phyloseq package is fast becoming a good way a managing micobial community data, filtering and visualizing that data and performing analysis such as ordination. Along with the standard R environment and packages vegan and vegetarian you can perform virually any analysis. Today we will
+The phyloseq package is fast becoming a good way a managing micobial community data, filtering and visualizing that data and performing analysis such as ordination. Along with the standard R environment and packages vegan and vegetarian you can perform virtually any analysis. Today we will
 
-1. Install R packages
-2.  Load data straight from dbcAmplicons (biom file)
-3. Filter out Phylum
-4. Filter out additional Taxa
-5. Filter out samples
-6. Graphical Summaries
-7. Ordination
-8. Differential Abundances
-
-## installation from bioconductor
-
-We first need to make sure we have the necessary packages: phyloseq, ggplot2, gridExtra, gridR, ape, and edgeR.
-
-```{r}
-#if(!requireNamespace("BiocManager")){
-#  install.packages("BiocManager")
-#}
-#BiocManager::install("phyloseq")
-#BiocManager::install("ggplot2")
-#BiocManager::install("gridExtra")
-#BiocManager::install("edgeR")
-#BiocManager::install("vegan")
-
-library(phyloseq)
-library(biomformat)
-library(ggplot2)
-library(gridExtra)
-library(vegan)
-```
-
-Can choose to download my finished product
-```{r download2, results='hide', warning=F, error=F}
-download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2019_April_ESALQ_Microbial_Community_Analysis/master/MCA_Workshop_R/16sV1V3.biom", "16sV1V3.biom")
-```
+1.  Load data straight from dbcAmplicons (biom file)
+2. Filter out Phylum
+3. Filter out additional Taxa
+4. Filter out samples
+5. Graphical Summaries
+6. Ordination
+7. Differential Abundances
 
 ## Read in the dataset, biom file generated from dbcAmplicons pipeline
 
