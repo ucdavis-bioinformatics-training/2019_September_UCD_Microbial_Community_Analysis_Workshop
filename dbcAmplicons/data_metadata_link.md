@@ -15,13 +15,11 @@ conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv
 
 Lets login and navigate to our directory
 
-		/share/workshop/$USER/mca_example/
+	cd /share/workshop/$USER/mca_example/
 
 **1\.** Lets copy the workshop data into our workshop directory.
 
-		cd  
-		cd /share/workshop/$USER/mca_example
-		cp -r /share/biocore/workshops/2019_Sept_MCA/Illumina_Reads /share/workshop/$USER/mca_example/.
+	cp -r /share/biocore/workshops/2019_Sept_MCA/Illumina_Reads /share/workshop/$USER/mca_example/.
 
 Take a look at the files ... what is inside the Illumina_Reads folder?
 
