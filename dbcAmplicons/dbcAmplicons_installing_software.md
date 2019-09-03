@@ -20,13 +20,10 @@ optional
 
 ---
 
-**1\.** First, create a directory for the workshop in your home directory:
+**1\.** First, create a directory for the workshop:
 
-    cd /share/workshop/$USER/
-
-Look at your prompt and make sure your in the right placed
-
-  mkdir /share/workshop/$USER/mca_example
+    cd
+    mkdir -p /share/workshop/$USER/mca_example
 
 and two other directors
 
@@ -72,13 +69,15 @@ Then on the command line, execute the commands in the dbcA_profile file using so
 	git submodule init
 	git submodule update
 	make
-	# might have problems retrieving data.tgz file ... if so, try again ...
-	# during 9-5 EST(!) ...
-	# test installation, should see help documentation for classify
+
+might have problems retrieving data.tgz file ... if so, try again ... during 9-5 EST(!) ...  
+
+test installation, should see help documentation for classify
+
 	java -jar classifier.jar classify
-	# this should give you a "Command Error" because you didn\'t specify output
-	# ... but it should give you a list of options
-	# feel free to move on if the 'make' fails due to data.tgz file, we can fix this later
+
+this should give you a "Command Error" because you didn\'t specify output, but it should give you a list of options.
+feel free to move on if the 'make' fails due to data.tgz file, we can fix this later
 
 **4\.c** Add the location of classifier.jar as a variable in our dbcA_profile file,
 
@@ -92,29 +91,22 @@ Then on the command line, execute the commands in the dbcA_profile file using so
 
 ---
 
-**5\.a** Setup a python virtual environment for dbcAmplicons, in the src directory. You may need to first install virtualenv and pip, pip can be installed following instructions from here [pip](https://pip.pypa.io/en/stable/installing/) and then:
+**5\.a** Setup a conda python environment for dbcAmplicons, in the src directory.
 
 	module load anaconda2
-	#cd /share/workshop/$USER/mca_example/src
-	#pip install virtualenv
-
-If you already have pip, or having installed it using above, then
-
-	cd /share/workshop/$USER/mca_example/src
-	virtualenv dbcA_virtualenv
+  onda create -p /share/workshop/$USER/mca_example/src/dbcA_virtualenv python=2.7 pip
 
 **5\.b** This lets you set the virtual environment to activate on login by adding it to our dbcA_profile file.
 
 	echo 'module load anaconda2' >> /share/workshop/$USER/mca_example/src/dbcA_profile
-	echo 'source /share/workshop/$USER/mca_example/src/dbcA_virtualenv/bin/activate' >> /share/workshop/$USER/mca_example/src/dbcA_profile
-	echo 'export PYTHON_EGG_CACHE=/share/workshop/$USER/mca_example/src' >> /share/workshop/$USER/mca_example/src/dbcA_profile
+  echo '. /software/anaconda2/4.5.12/lssc0-linux/etc/profile.d/conda.sh' >>  /share/workshop/$USER/mca_example/src/dbcA_profile
+	echo 'conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv' >> /share/workshop/$USER/mca_example/src/dbcA_profile
 
 Then on the command line, execute the commands in the dbcA_profile file using source.
 
 	source /share/workshop/$USER/mca_example/src/dbcA_profile
 
 You should now see the text "(dbcA_virtualenv)" at the beginning of your prompt.
-
 ---
 
 **6\.** Install **dbcAmplicons**
@@ -125,21 +117,27 @@ You should now see the text "(dbcA_virtualenv)" at the beginning of your prompt.
 	git clone https://github.com/msettles/dbcAmplicons.git
 	cd /share/workshop/$USER/mca_example/src/dbcAmplicons/
 	python setup.py install
-	# test installation, should see help documentation
-	dbcAmplicons -h  # should show options / usage message
+
+test installation, should see help documentation
+
+	dbcAmplicons -h
+
+You should see the options / usage message
 
 **Optional\.** Test **dbcAmplicons**
 
 You could also test the dbcAmplicons installation by running the script, test_dbAmplicons.sh, under the tests folder (in dbcAmplicions).
 
 	cd /share/workshop/$USER/mca_example/src/dbcAmplicons/tests/
-	./test_dbAmplicons.sh  # could show some ERRORs / WARNINGs, but otherwise give stats after a few minutes
+	./test_dbAmplicons.sh
+
+The script should show some ERRORs / WARNINGs (intended as test), but otherwise give stats after a few minutes
 
 ---
 
 **Lets Review**
 
-We created a directory for the workshop, in that directory we created two folders src and bin. We've installed FLASH2, RDP and dbcAmplicons. We've placed the executable for flash in a bin folder and added the folder to our PATH. We created an environment variable for the RDP classifier. We've created a python virtual environment and then installed the python package biom-format using pip and the dbcAmplions package using setup.py.
+We created a directory for the workshop, in that directory we created two folders src and bin. We've installed FLASH2, RDP and dbcAmplicons. We've placed the executable for flash in a bin folder and added the folder to our PATH. We created an environment variable for the RDP classifier. We've created a conda python environment and then installed the dbcAmplicons package using setup.py.
 
 1. You should have verified all the software works by viewing their help docs
 2. Verify that the flash executable is indeed in the bin folder
@@ -165,13 +163,13 @@ If for some reason installation failed let me know and we'll get things fixed
 
 These lines should be in your dbcA_profile
 
-export PATH=/share/workshop/$USER/mca_example/bin:$PATH  
-module load java/jdk1.8  
-export RDP_PATH=/share/workshop/$USER/mca_example/src/RDPTools  
-module load anaconda2  
-source /share/workshop/$USER/mca_example/src/dbcA_virtualenv/bin/activate  
-export PYTHON_EGG_CACHE=/share/workshop/$USER/mca_example/src  
-
+<div class="output">export PATH=/share/workshop/$USER/mca_example/bin:$PATH
+module load java/jdk1.8
+export RDP_PATH=/share/workshop/$USER/mca_example/src/RDPTools
+module load anaconda2
+. /software/anaconda2/4.5.12/lssc0-linux/etc/profile.d/conda.sh
+conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv
+</div>
 ---
 
 At any time you can initiate the environment for dbcAmplicons using.
