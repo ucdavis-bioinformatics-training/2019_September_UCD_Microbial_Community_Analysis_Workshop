@@ -93,15 +93,15 @@ Then on the command line, execute the commands in the dbcA_profile file using so
 
 **5\.a** Setup a conda python environment for dbcAmplicons, in the src directory.
 
-	 module load anaconda2
-   conda create -p /share/workshop/$USER/mca_example/src/dbcA_virtualenv python=2.7 pip
+	module load anaconda2
+	conda create -p /share/workshop/$USER/mca_example/src/dbcA_virtualenv python=2.7 pip
 
 **5\.b** This lets you set the virtual environment to activate on login by adding it to our dbcA_profile file.
 
-	 echo 'module load anaconda2' >> /share/workshop/$USER/mca_example/src/dbcA_profile
-   echo '. /software/anaconda2/4.5.12/lssc0-linux/etc/profile.d/conda.sh' >>  /share/workshop/$USER/mca_example/src/dbcA_profile
-   echo 'conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv' >> /share/workshop/$USER/mca_example/src/dbcA_profile
-   echo 'export PYTHON_EGG_CACHE=/share/workshop/$USER/mca_example/src' >> /share/workshop/$USER/mca_example/src/dbcA_profile
+	echo 'module load anaconda2' >> /share/workshop/$USER/mca_example/src/dbcA_profile
+	echo '. /software/anaconda2/4.5.12/lssc0-linux/etc/profile.d/conda.sh' >>  /share/workshop/$USER/mca_example/src/dbcA_profile
+	echo 'conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv' >> /share/workshop/$USER/mca_example/src/dbcA_profile
+	echo 'export PYTHON_EGG_CACHE=/share/workshop/$USER/mca_example/src' >> /share/workshop/$USER/mca_example/src/dbcA_profile
 
 
 Then on the command line, execute the commands in the dbcA_profile file using source.
