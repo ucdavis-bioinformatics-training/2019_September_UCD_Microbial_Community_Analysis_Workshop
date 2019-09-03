@@ -36,4 +36,9 @@ Next lets make a metadata directory and transfer our barcode, primer and sample 
 	cd /share/workshop/$USER/mca_example
 	cp -r /share/biocore/workshops/2019_Sept_MCA/metadata /share/workshop/$USER/mca_example/.
 
+
+Take a look at the files ... what is inside the metadata folder?
+
+View the metadata files in the folder
+
 If all this is correct, we are ready to begin.

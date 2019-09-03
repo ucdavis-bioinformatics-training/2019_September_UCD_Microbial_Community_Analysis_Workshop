@@ -42,7 +42,7 @@ navigation:
   - title: dbcAmplicons - Bioinformatics talk
     url: dbcAmplicons/dbcAmplicons_Bioinformatics.pdf
   - title: Dataset and Metadata
-  - url: dbcAmplicons/data_metadata_link
+    url: dbcAmplicons/data_metadata_link
   - title: dbcAmplicons - Data processing
     url: dbcAmplicons/dbcAmplicons_commands
 
