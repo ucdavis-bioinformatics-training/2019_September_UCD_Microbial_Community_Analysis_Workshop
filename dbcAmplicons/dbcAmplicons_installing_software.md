@@ -163,7 +163,7 @@ If for some reason installation failed let me know and we'll get things fixed
 
 These lines should be in your dbcA_profile
 
-<div class="output">export PATH=/share/workshop/$USER/mca_example/bin:$PATH
+<div class="script">export PATH=/share/workshop/$USER/mca_example/bin:$PATH
 module load java/jdk1.8
 export RDP_PATH=/share/workshop/$USER/mca_example/src/RDPTools
 module load anaconda2
@@ -176,13 +176,6 @@ At any time you can initiate the environment for dbcAmplicons using.
 
   source /share/workshop/$USER/mca_example/src/dbcA_profile
 
-**7\.** Last lets copy the workshop data into our home directory.
+and you can specifically deactivate the conda environment with
 
-  cd  
-  cd /share/workshop/$USER/mca_example  
-  wget https://bioshare.bioinformatics.ucdavis.edu/bioshare/download/puznld0hwbxpb3c/Slashpile_only_R1.fastq.gz
-  wget https://bioshare.bioinformatics.ucdavis.edu/bioshare/download/puznld0hwbxpb3c/Slashpile_only_R2.fastq.gz
-  wget https://bioshare.bioinformatics.ucdavis.edu/bioshare/download/puznld0hwbxpb3c/Slashpile_only_R3.fastq.gz
-  wget https://bioshare.bioinformatics.ucdavis.edu/bioshare/download/puznld0hwbxpb3c/Slashpile_only_R4.fastq.gz
-
-Take a look at the files ... what is inside the Illumina_Reads folder?
+  conda deactivate

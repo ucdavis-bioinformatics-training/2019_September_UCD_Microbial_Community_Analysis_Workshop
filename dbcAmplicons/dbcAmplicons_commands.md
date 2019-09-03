@@ -3,14 +3,15 @@ Running the dbcAmplicons pipeline
 
 This document assumes [dbcAmplicons installing software](./dbcAmplicons_installing_software.md) has been completed.
 
-**IF** for some reason it didn't finish, is corrupted or you missed the session, you can use my instance. In your ~/.bash_profile edit the lines to use my folders
+**IF** for some reason it didn't finish, is corrupted or you missed the session, you can use my instance. Create the file /share/workshop/$USER/mca_example/src edit the lines to use my folders
 
-	export PATH=/share/workshop/msettles/mca_example/bin:$PATH  
-	module load java/jdk1.8
-	export RDP_PATH=/share/workshop/msettles/mca_example/src/RDPTools  
-	module load anaconda2
-	source /share/workshop/msettles/mca_example/src/dbcA_virtualenv/bin/activate  
-	export PYTHON_EGG_CACHE=/share/workshop/$USER/mca_example/src  
+<div class="script">export PATH=/share/workshop/msettles/mca_example/bin:$PATH
+module load java/jdk1.8
+export RDP_PATH=/share/workshop/msettles/mca_example/src/RDPTools
+module load anaconda2
+. /software/anaconda2/4.5.12/lssc0-linux/etc/profile.d/conda.sh
+conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv
+</div>
 
 Lets login and request an interactive session on the clusters
 
@@ -32,7 +33,7 @@ The goal is to process raw Illumina sequence reads to abundance tables for the 1
 		3. classify
 		4. abundances.
 
-![workflow](Workflow.png)
+<img src="Workflow.png" alt="workflow" width="600px"/>
 
 Today we'll process at least one amplicon set to completion, should there be extra time, begin processing the others, or later you can process the others as practice.
 
@@ -42,7 +43,6 @@ Change directory into the workshops space
 	ls --color
 
 you should see 3 directories: bin, Illumina_Reads and src
-
 
 Lets verify the software is accessible
 

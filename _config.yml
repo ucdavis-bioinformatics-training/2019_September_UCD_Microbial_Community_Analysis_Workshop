@@ -41,12 +41,10 @@ navigation:
     url: dbcAmplicons/dbcAmplicons_Amplicons.pdf
   - title: dbcAmplicons - Bioinformatics talk
     url: dbcAmplicons/dbcAmplicons_Bioinformatics.pdf
-  - title: Dataset Metadata
-  - url: dbcAmplicons/metadata_links
-  - title: dbcAmplicons - Data processing, 16S V1-V3
+  - title: Dataset and Metadata
+  - url: dbcAmplicons/data_metadata_link
+  - title: dbcAmplicons - Data processing
     url: dbcAmplicons/dbcAmplicons_commands
-  - title: dbcAmplicons - Data processing, other amplicons
-    url: dbcAmplicons/dbcAmplicons_commands_all_amplicons
 
   - heading: Microbial Community Analysis in R
   - title: Prepare MCA Analysis
