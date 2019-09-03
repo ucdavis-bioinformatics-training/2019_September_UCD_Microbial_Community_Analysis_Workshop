@@ -26,7 +26,7 @@ navigation:
 
   - heading: Intro to R and Rstudio
   - title: Getting Started
-    url: intro2R/RStudio_fixed
+    url: intro2R/RStudio
   - title: Intro to R
     url: intro2R/Intro2R_fixed
   - title: Prepare Data in R (extra)
@@ -34,9 +34,33 @@ navigation:
   - title: Data in R (extra)
     url: intro2R/data_in_R_fixed
 
-  - heading: Data Reduction
-  - title: Files and Filetypes for RNA-Seq
-    url: data_reduction/filetypes
+  - heading: dbcAmplicons
+  - title: Installing Software
+    url: dbcAmplicons/dbcAmplicons_installing_software.md)
+  - title: dbcAmplicons: Amplicons talk
+    url: dbcAmplicons/dbcAmplicons_Amplicons.pdf
+  - title: dbcAmplicons: Bioinformatics talk
+    url: dbcAmplicons/dbcAmplicons_Bioinformatics.pdf
+  - title: dbcAmplicons: Data processing, 16S V1-V3
+    url: dbcAmplicons/dbcAmplicons_commands.md
+  - title: dbcAmplicons: Data processing, other amplicons
+    url: dbcAmplicons/dbcAmplicons_commands_all_amplicons.md
+
+  - heading: Dataset Metadata
+  - title: Sample Submission
+    url: dbcAmplicons/metadata/slashpilesamplesheet.xlsx
+  -title: Barcode Table
+    url: dbcAmplicons/metadata/dbcBarcodeLookupTable.txt
+  -title: Primer Table
+    url: dbcAmplicons/metadata/PrimerTable.txt
+  -title: Sample Sheet
+    url: dbcAmplicons/metadata/workshopSamplesheet.txt
+
+  -  heading: Microbial Community Analysis in R
+  - title: Prepare MCA Analysis
+    url: MCA_Workshop_R/prepare_phyloseq.md
+  - title: MCA Analysis in phyloseq
+    url: MCA_Workshop_R/phyloseq.md
 
   - heading: Differential Expression and Pathway Analysis
   - title: Prepare Differential Expression Analysis
