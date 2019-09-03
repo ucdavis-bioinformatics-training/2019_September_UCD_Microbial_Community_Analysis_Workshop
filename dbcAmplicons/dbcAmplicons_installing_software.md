@@ -93,8 +93,8 @@ Then on the command line, execute the commands in the dbcA_profile file using so
 
 **5\.a** Setup a conda python environment for dbcAmplicons, in the src directory.
 
-	module load anaconda2
-  onda create -p /share/workshop/$USER/mca_example/src/dbcA_virtualenv python=2.7 pip
+	 module load anaconda2
+   conda create -p /share/workshop/$USER/mca_example/src/dbcA_virtualenv python=2.7 pip
 
 **5\.b** This lets you set the virtual environment to activate on login by adding it to our dbcA_profile file.
 
