@@ -18,7 +18,7 @@ navigation:
     url: cli/logging-in
   - title: Intro to Command-Line
     url: cli/command-line-intro
-  - title: Advanced Command-Line
+  - title: Advanced Command-Line (extra)
     url: cli/advanced-command-line
   - title: Running jobs on the Cluster and using modules
     url: cli/cluster
@@ -27,11 +27,11 @@ navigation:
   - title: Getting Started
     url: intro2R/RStudio
   - title: Intro to R
-    url: intro2R/Intro2R
+    url: intro2R/Intro2R_fixed
   - title: Prepare Data in R (extra)
-    url: intro2R/data_in_R_prepare
+    url: intro2R/data_in_R_prepare_fixed
   - title: Data in R (extra)
-    url: intro2R/data_in_R
+    url: intro2R/data_in_R_fixed
 
   - heading: Data Reduction
   - title: Files and Filetypes for RNA-Seq
