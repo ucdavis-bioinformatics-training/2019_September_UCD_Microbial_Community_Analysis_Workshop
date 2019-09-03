@@ -11,6 +11,7 @@ export RDP_PATH=/share/workshop/msettles/mca_example/src/RDPTools
 module load anaconda2
 . /software/anaconda2/4.5.12/lssc0-linux/etc/profile.d/conda.sh
 conda activate /share/workshop/msettles/mca_example/src/dbcA_virtualenv
+export PYTHON_EGG_CACHE=/share/workshop/$USER/mca_example/src
 </div>
 
 Lets login and navigate to our directory

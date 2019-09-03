@@ -52,7 +52,7 @@ If there are any errors, fix them (can do so in nano) and validate again.
 
 Once we are sure our input files are ok, pass validation
 
-**2\.** Lets Preprocess the data, should talk less than 1 hour. We will be putting all intermediate output to a folder Slashpile.intermediate
+**2\.** Lets Preprocess the data, should talk less than 1 hour. We will be putting all intermediate output to a folder Workshop.intermediate
 
 Look at the help documentation first
 
@@ -61,28 +61,26 @@ Look at the help documentation first
 First lets 'test' preprocessing, by only running the first 'batch' of reads
 
 	cd /share/workshop/$USER/mca_example
-	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz --test > preprocess.log
+	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Workshop.intermediate -1 Illumina_Reads/MCAWorkshopDataset_S1_L001_R1_001.fastq.gz -2 Illumina_Reads/MCAWorkshopDataset_S1_L001_I1_001.fastq.gz -3 Illumina_Reads/MCAWorkshopDataset_S1_L001_I2_001.fastq.gz -4 Illumina_Reads/MCAWorkshopDataset_S1_L001_R2_001.fastq.gz --test > preprocess.log
 
 View preprocess.log and the file Identified_barcodes.txt, make sure the results make sense.
 
 	cat preprocess.log
-	cat Slashpile.intermediate/Identified_Barcodes.txt
+	cat Workshop.intermediate/Identified_Barcodes.txt
 
 Lets see what it looks like when you get the primer orientation incorrect. Try running the above but add the parameter, --I1 asis. Then look at the output again.
 
-Now run all reads, should talk less than 1 hour.
+Now run all reads, should take less than 1 hour (\~30 minutes).
 
 	cd /share/workshop/$USER/mca_example
-	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz > preprocess.log
+	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Workshop.intermediate -1 Illumina_Reads/MCAWorkshopDataset_S1_L001_R1_001.fastq.gz -2 Illumina_Reads/MCAWorkshopDataset_S1_L001_I1_001.fastq.gz -3 Illumina_Reads/MCAWorkshopDataset_S1_L001_I2_001.fastq.gz -4 Illumina_Reads/MCAWorkshopDataset_S1_L001_R2_001.fastq.gz > preprocess.log
 
 Again view the output to make sure it makes sense
 
 	cat preprocess.log
-	cat Slashpile.intermediate/Identified_Barcodes.txt
+	cat Workshop.intermediate/Identified_Barcodes.txt
 
-Finally, look at the output in the Slashpile.intermediate folder, how many subfolders are there? What do these correspond to? What is inside each folder? View a few reads in one of the files.
-
-**From now on we will only be performing downstream processing of the 16sV3V5 amplicon set**
+Finally, look at the output in the Workshop.intermediate folder, how many subfolders are there? What do these correspond to? What is inside each folder? View a few reads in one of the files.
 
 **3\.** Next, lets merge/join the read pairs, should take less than 10 minutes
 
@@ -91,7 +89,7 @@ View the help documentation and run join
 	cd /share/workshop/$USER/mca_example
 	dbcAmplicons join -h
 
-	dbcAmplicons join -t 4 -O Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5 -1 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R1.fastq.gz > join-16sV3V5.log
+	dbcAmplicons join -t 4 -O Workshop.intermediate/MCA_Workshop/workshop-16SV3V5 -1 Workshop.intermediate/MCA_Workshop/workshop-16SV3V5_R1.fastq.gz > join-16sV3V5.log
 
 view the log
 
@@ -101,22 +99,22 @@ Try changing the parameter --max-mismatch-density, first to 0.1, then to 0.5, ho
 
 If you prefer the default, run join again with defaults. dbcAmplicons join also produces two histogram files (.hist and .histogram) in the output folder. View these files (can use cat, less, more, etc.). What do you see?
 
-**4\.** Classify the merged reads using RDP, should take less than 2 hours
+**4\.** Classify the merged reads using RDP, should take less than 3 hours.
 
 View the help documentation and run classify
 
 	cd /share/workshop/$USER/mca_example
 	dbcAmplicons classify -h
 
-	dbcAmplicons classify -p 4 --gene 16srrna -U Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.extendedFrags.fastq.gz -O Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5
+	dbcAmplicons classify -p 4 --gene 16srrna -U Workshop.intermediate/MCA_Workshop/workshop-16SV3V5.extendedFrags.fastq.gz -O Workshop.intermediate/MCA_Workshop/workshop-16SV3V5
 
 classify produces a fixrank file, view the first 6 lines of the output file
 
-	head Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.fixrank
+	head Workshop.intermediate/MCA_Workshop/workshop-16SV3V5.fixrank
 
 For the other amplicons what parameters in classify would need to be changed?
 
-During the next week try running classify on the original preprocessed reads, skipping join, how do the results compare to the overlapped set?
+During the next week try running classify on the original preprocessed reads, __skipping join__, how do the results compare to the overlapped set?
 
 ---
 
@@ -125,13 +123,13 @@ During the next week try running classify on the original preprocessed reads, sk
 Lets make a new folder for the final output results.
 
 	cd /share/workshop/$USER/mca_example
-	mkdir Slashpile.results
+	mkdir Workshop.results
 
 View the help documentation and generate the results. When you provide dbcAmplicons abundance with a sample sheet it will include any additional metadata (extra columns added to the sample sheet) into the biom file for downstream processing.
 
 	dbcAmplicons abundance -h
 
-	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV3V5 -F Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.fixrank --biom > abundance.16sV3V5.log
+	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Workshop.results/16sV3V5 -F Workshop.intermediate/MCA_Workshop/workshop-16SV3V5.fixrank --biom > abundance.16sV3V5.log
 	cat abundance.16sV3V5.log
 
 Try changing the -r parameter see what changes? what about the -t parameter? Once done playing rerun the above to get the final biom file for the next phase of analysis.
@@ -146,7 +144,7 @@ view the help documentation then run, placing output into the folder SplitBySamp
 
 	cd /share/workshop/$USER/mca_example
 	splitReadsBySample.py -h
-	splitReadsBySample.py -O SplitBySample/16sV3V5 -1 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R1.fastq.gz -2 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R2.fastq.gz
+	splitReadsBySample.py -O SplitBySample/16sV3V5 -1 Workshop.intermediate/MCA_Workshop/workshop-16SV3V5_R1.fastq.gz -2 Workshop.intermediate/MCA_Workshop/workshop-16SV3V5_R2.fastq.gz
 
 View the output folder, what do you see?
 
@@ -156,12 +154,6 @@ View the output folder, what do you see?
 
 	cd /share/workshop/$USER/mca_example
 	dbcVersionReport.sh &> VersionInfo.txt
-
-**8\.** Process the remainder of the amplicons. First perform 'join', check the output and then the remainder of the pipeline on the other amplicons: 16sV3V4, ITS1, ITS2, LSU
-
-Post joining evaluate the results. --Hint: one of these should be processed differently than the others--
-
-Once join is complete for all amplicons, setup and run the remainder of the pipeline for each amplicon.
 
 ---
 

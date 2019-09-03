@@ -60,7 +60,7 @@ View preprocess.log and the file Identified_barcodes.txt, make sure the results 
 
 Run all reads
 
-	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Slashpile.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz > preprocess.log
+	dbcAmplicons preprocess -B metadata/BarcodeTable.txt -P metadata/PrimerTable.txt -S metadata/workshopSamplesheet.txt -O Workshop.intermediate -1 Illumina_Reads/Slashpile_only_R1.fastq.gz > preprocess.log
 
 	cat preprocess.log
 	cat Identified_Barcodes.txt
@@ -69,34 +69,34 @@ Run all reads
 
 	dbcAmplicons join -h
 
-	dbcAmplicons join -t 4 -O Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5 -1 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R1.fastq.gz > join-16sV3V5.log
+	dbcAmplicons join -t 4 -O Workshop.intermediate/MCA_Workshop/workshop-16SV3V5 -1 Workshop.intermediate/MCA_Workshop/workshop-16SV3V5_R1.fastq.gz > join-16sV3V5.log
 	cat join-16sV3V5.log
 
-	dbcAmplicons join -t 4 -O Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5 -1 Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5_R1.fastq.gz > join-16sV4V5.log
+	dbcAmplicons join -t 4 -O Workshop.intermediate/16sV4V5/Slashpile-16sV4V5 -1 Workshop.intermediate/16sV4V5/Slashpile-16sV4V5_R1.fastq.gz > join-16sV4V5.log
 	cat join-16sV4V5.log
 
-	dbcAmplicons join -t 4 -O Slashpile.intermediate/ITS1/Slashpile-ITS1 -1 Slashpile.intermediate/ITS1/Slashpile-ITS1_R1.fastq.gz  > join-ITS1.log
+	dbcAmplicons join -t 4 -O Workshop.intermediate/ITS1/Slashpile-ITS1 -1 Workshop.intermediate/ITS1/Slashpile-ITS1_R1.fastq.gz  > join-ITS1.log
 	cat join-ITS1.log
 
-	dbcAmplicons join -t 4 -O Slashpile.intermediate/ITS2/Slashpile-ITS2 -1 Slashpile.intermediate/ITS2/Slashpile-ITS2_R1.fastq.gz  > join-ITS2.log
+	dbcAmplicons join -t 4 -O Workshop.intermediate/ITS2/Slashpile-ITS2 -1 Workshop.intermediate/ITS2/Slashpile-ITS2_R1.fastq.gz  > join-ITS2.log
 	cat join-ITS2.log
 
-	dbcAmplicons join -t 4 -O Slashpile.intermediate/LSU/Slashpile-LSU -1 Slashpile.intermediate/LSU/Slashpile-LSU_R1.fastq.gz > join-LSU.log
+	dbcAmplicons join -t 4 -O Workshop.intermediate/LSU/Slashpile-LSU -1 Workshop.intermediate/LSU/Slashpile-LSU_R1.fastq.gz > join-LSU.log
 	cat join-LSU.log
 
 **4\.** Classify the merged reads using RDP
 
 	dbcAmplicons classify -h
 
-	dbcAmplicons classify -p 4 --gene 16srrna -U Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.extendedFrags.fastq.gz -O Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5
+	dbcAmplicons classify -p 4 --gene 16srrna -U Workshop.intermediate/MCA_Workshop/workshop-16SV3V5.extendedFrags.fastq.gz -O Workshop.intermediate/MCA_Workshop/workshop-16SV3V5
 
-	dbcAmplicons classify -p 4 --gene 16srrna -U Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5.extendedFrags.fastq.gz -O Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5
+	dbcAmplicons classify -p 4 --gene 16srrna -U Workshop.intermediate/16sV4V5/Slashpile-16sV4V5.extendedFrags.fastq.gz -O Workshop.intermediate/16sV4V5/Slashpile-16sV4V5
 
-	dbcAmplicons classify -p 4 --gene fungalits_unite -U Slashpile.intermediate/ITS1/Slashpile-ITS1.extendedFrags.fastq.gz -O Slashpile.intermediate/ITS1/Slashpile-ITS1
+	dbcAmplicons classify -p 4 --gene fungalits_unite -U Workshop.intermediate/ITS1/Slashpile-ITS1.extendedFrags.fastq.gz -O Workshop.intermediate/ITS1/Slashpile-ITS1
 
-	dbcAmplicons classify -p 4 --gene fungalits_unite -U Slashpile.intermediate/ITS2/Slashpile-ITS2.extendedFrags.fastq.gz -O Slashpile.intermediate/ITS2/Slashpile-ITS2
+	dbcAmplicons classify -p 4 --gene fungalits_unite -U Workshop.intermediate/ITS2/Slashpile-ITS2.extendedFrags.fastq.gz -O Workshop.intermediate/ITS2/Slashpile-ITS2
 
-	dbcAmplicons classify -p 4 --gene fungallsu -1 Slashpile.intermediate/LSU/Slashpile-LSU.notCombined_1.fastq.gz -2 Slashpile.intermediate/LSU/Slashpile-LSU.notCombined_2.fastq.gz -O Slashpile.intermediate/LSU/Slashpile-LSU
+	dbcAmplicons classify -p 4 --gene fungallsu -1 Workshop.intermediate/LSU/Slashpile-LSU.notCombined_1.fastq.gz -2 Workshop.intermediate/LSU/Slashpile-LSU.notCombined_2.fastq.gz -O Workshop.intermediate/LSU/Slashpile-LSU
 
 ---
 
@@ -106,34 +106,34 @@ Run all reads
 
 	dbcAmplicons abundance -h
 
-	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV3V5 -F Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5.fixrank --biom > abundance.16sV3V5.log
+	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV3V5 -F Workshop.intermediate/MCA_Workshop/workshop-16SV3V5.fixrank --biom > abundance.16sV3V5.log
 	cat abundance.16sV3V5.log
 
-	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV4V5 -F Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5.fixrank --biom  > abundance.16sV4V5.log
+	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/16sV4V5 -F Workshop.intermediate/16sV4V5/Slashpile-16sV4V5.fixrank --biom  > abundance.16sV4V5.log
 	cat abundance.16sV4V5.log
 
-	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/ITS1 -F Slashpile.intermediate/ITS1/Slashpile-ITS1.fixrank --biom  > abundance.ITS1.log
+	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/ITS1 -F Workshop.intermediate/ITS1/Slashpile-ITS1.fixrank --biom  > abundance.ITS1.log
 	cat abundance.ITS1.log
 
-	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/ITS2 -F Slashpile.intermediate/ITS2/Slashpile-ITS2.fixrank  --biom > abundance.ITS2.log
+	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/ITS2 -F Workshop.intermediate/ITS2/Slashpile-ITS2.fixrank  --biom > abundance.ITS2.log
 	cat abundance.ITS2.log
 
-	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/LSU -F Slashpile.intermediate/LSU/Slashpile-LSU.fixrank --biom > abundance.LSU.log
+	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Slashpile.results/LSU -F Workshop.intermediate/LSU/Slashpile-LSU.fixrank --biom > abundance.LSU.log
 	cat abundance.LSU.log
 
 **6\.** Split Reads by samples, for downstream processing in another application (post preprocessing/merging), or for submission to the SRA.
 
 	splitReadsBySample.py -h
-	splitReadsBySample.py -O SplitBySample/16sV3V5 -1 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R1.fastq.gz -2 Slashpile.intermediate/16sV3V5/Slashpile-16sV3V5_R2.fastq.gz
+	splitReadsBySample.py -O SplitBySample/16sV3V5 -1 Workshop.intermediate/MCA_Workshop/workshop-16SV3V5_R1.fastq.gz -2 Workshop.intermediate/MCA_Workshop/workshop-16SV3V5_R2.fastq.gz
 
 	splitReadsBySample.py -h
-	splitReadsBySample.py -O SplitBySample/16sV4V5 -1 Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5_R1.fastq.gz -2 Slashpile.intermediate/16sV4V5/Slashpile-16sV4V5_R2.fastq.gz
+	splitReadsBySample.py -O SplitBySample/16sV4V5 -1 Workshop.intermediate/16sV4V5/Slashpile-16sV4V5_R1.fastq.gz -2 Workshop.intermediate/16sV4V5/Slashpile-16sV4V5_R2.fastq.gz
 
 	splitReadsBySample.py -h
-	splitReadsBySample.py -O SplitBySample/ITS1 -1 Slashpile.intermediate/ITS1/Slashpile-ITS1_R1.fastq.gz -2 Slashpile.intermediate/ITS1/Slashpile-ITS1_R2.fastq.gz
+	splitReadsBySample.py -O SplitBySample/ITS1 -1 Workshop.intermediate/ITS1/Slashpile-ITS1_R1.fastq.gz -2 Workshop.intermediate/ITS1/Slashpile-ITS1_R2.fastq.gz
 
 	splitReadsBySample.py -h
-	splitReadsBySample.py -O SplitBySample/ITS2 -1 Slashpile.intermediate/ITS2/Slashpile-ITS2_R1.fastq.gz -2 Slashpile.intermediate/ITS2/Slashpile-ITS2_R2.fastq.gz
+	splitReadsBySample.py -O SplitBySample/ITS2 -1 Workshop.intermediate/ITS2/Slashpile-ITS2_R1.fastq.gz -2 Workshop.intermediate/ITS2/Slashpile-ITS2_R2.fastq.gz
 
 	splitReadsBySample.py -h
-	splitReadsBySample.py -O SplitBySample/LSU -1 Slashpile.intermediate/LSU/Slashpile-LSU_R1.fastq.gz -2 Slashpile.intermediate/LSU/Slashpile-LSU_R2.fastq.gz
+	splitReadsBySample.py -O SplitBySample/LSU -1 Workshop.intermediate/LSU/Slashpile-LSU_R1.fastq.gz -2 Workshop.intermediate/LSU/Slashpile-LSU_R2.fastq.gz
