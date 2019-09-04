@@ -546,13 +546,13 @@ nano now occupies the whole screen; see commands at the bottom
 type/paste in the following ...
 (note that '#!' is an interpreted command to the shell, not a comment)
 
-<div class="script">
-#!/bin/bash
+<pre class="prettyprint"><code class="language-sh" style="background-color:333333">#!/bin/bash
 grep -o . $1 | \
     sort | \
     uniq -c | \
     sort -rn -k1,1
-</div>
+</code></pre>
+
 
 Cntrl-X top exit first saving the document. Follow the instruction at the bottom of the screen
 
