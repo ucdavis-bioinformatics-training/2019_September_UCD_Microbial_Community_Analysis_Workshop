@@ -157,6 +157,12 @@ View the output folder, what do you see?
 
 ---
 
-**FYI** dbcAmplicons screen can be used when you want to remove read contaminants. Can be ran either before or after dbcAmplicons join. You provide a reference fasta file to screen and it will remove any reads that map to any sequence in that file.
+**FYI**
+
+dbcAmplicons screen can be used when you want to remove read contaminants. Can be ran either before or after dbcAmplicons join. You provide a reference fasta file to screen and it will remove any reads that map to any sequence in that file.
 
 	dbcAmplicons screen -h
+
+dbcAmplicons extract can be used when you want to isolate sequencing reads from a specific taxonomic group for additional processing.
+
+		dbcAmplicons extract -h
