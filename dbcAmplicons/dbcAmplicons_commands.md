@@ -1,7 +1,7 @@
 Running the dbcAmplicons pipeline
 ===============================================
 
-This document assumes [Dataset and Metadata](./dbcAmplicons/data_metadata_link) has been completed.
+This document assumes [Dataset and Metadata](dbcAmplicons/data_metadata_link) has been completed.
 
 Lets login and request an interactive session on the clusters
 

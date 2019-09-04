@@ -52,8 +52,7 @@ use Exit on the command line to exit the session
 
 Generally, we do not use any options for sbatch ... we typically give it a script (i.e. a text file with commands inside) to run. Let's take a look at a template script [template.slurm](templates/template.slurm):
 
-<div class="script">#!/bin/bash
-
+<pre class="prettyprint"><code class="language-sh" style="background-color:333333">#!/bin/bash
 # options for sbatch
 #SBATCH --job-name=name # Job name
 #SBATCH --nodes=1 # should never be anything other than 1
@@ -80,7 +79,8 @@ sleep 300
 end=`date +%s`
 elapsed=`expr $end - $begin`
 echo Time taken: $elapsed
-</div>
+</code></pre>
+
 
 The first line tells sbatch what scripting language (bash here) the rest of the file is in. Any line that begins with a "#" symbol is ignored by the bash interpreter, those lines that begin with "#SBATCH" are used by the slurm controller. Those lines are for specifying sbatch options without having to type them on the command-line every time. In this script, on the next set of lines, we've put some code for calculating the time elapsed for the job and then we simply wait for 5 minutes (300 seconds) and exit. Lets try running it
 
