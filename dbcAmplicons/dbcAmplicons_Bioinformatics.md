@@ -237,4 +237,60 @@ Overlapping produces histograms of the overlapped Reads
 
 ## Classify
 
+For each read determine which organism is likely came from.
+
+* Uses the RDP (Ribosomal Database Project) classifier for bacterial and archaeal 16S, fungal LSU, ITS warcup/unite databases. You can provide your own training database
+
+* Classifies sequences to the closest taxonomic reference provides a bootstrap score for reliability
+
+* Concatenates Paired-end reads
+  * Can trim off low quality ends, to some value Q
+
+**Output:**
+fixrank file  
+
+<div class="script">M02034:401:000000000-C8N5M:1:1101:11714:1767|sample29:16S_V3V5:428              Bacteria        domain  1.0     "Proteobacteria"        phylum  1.0     Betaproteobacteria      class   0.96    Burkholderiales order   0.46    Burkholderiales_incertae_sedis  family  0.31    Thiobacter      genus   0.31
+M02034:401:000000000-C8N5M:1:1101:10173:1770|sample37:16S_V3V5:424              Bacteria        domain  1.0     "Proteobacteria"        phylum  1.0     Deltaproteobacteria     class   1.0     Myxococcales    order   1.0     Nannocystaceae  family  0.94    Pseudenhygromyxa        genus   0.31
+M02034:401:000000000-C8N5M:1:1101:10965:1770|sample37:16S_V3V5:424              Bacteria        domain  1.0     "Bacteroidetes" phylum  1.0     Sphingobacteriia
+        class   0.78    "Sphingobacteriales"    order   0.78    "Saprospiraceae"        family  0.53    Phaeodactylibacter      genus   0.53
+M02034:401:000000000-C8N5M:1:1101:17130:1771|sample48:16S_V3V5:403              Bacteria        domain  0.99    candidate division WPS-1        phylum  0.68    WPS-1_genera_incertae_sedis     class   0.68    WPS-1_genera_incertae_sedis     order   0.68    WPS-1_genera_incertae_sedis     family  0.68    WPS-1_genera_incertae_sedis     genus   0.68
+</div>
+
+### Ribosomal Database Project (RDP) - naïve Bayesian Classifier
+
+* Compares each read to a database
+* Database is updates periodically
+* Compares by k-mers (15 mers)
+* 100 bootstraps to establish confidence in result
+
+**Order does not matter, no 3% !**
+
+* Drawbacks
+  * Accepts only fasta (though website implies fastq) files
+  * Can be slow
+  * Down to genus only (for 16s, species for ITS)
+  * Kmer database are based on whole 16s
+  * Cannot group together unknown OTUs that represent unique taxa
+
+### Clustering
+
+Clustering – “Because of the increasing sizes of today’s amplicon datasets, fast and greedy de novo clustering heuristics are the preferred and only practical approach to produce OTUs”. I DISAGREE
+
+Shared steps in these algorithms are:
+1.  An amplicon is drawn out of the amplicon pool and becomes the center of a new OTU (centroid selection)
+1.  This centroid is then compared to all other amplicons remaining in the pool.
+1.  Amplicons for which the distance is within a global clustering threshold, t (e.g. 3%), to the centroid are moved from the pool to the OUT
+1.  The OTU is then closed. These steps are repeated as long as amplicons remain in the pool.
+
+Why I'm not a fan
+* Little to no biological rational to any of the clustering parameters, modify the parameters to get a result you like.
+* Dependent on ordering, reorder our reads you can get different set of OTUs. Often not repeatable from run to run.
+* 3% (or any other cutoff) is BS.
+Most clustering algorithms do not consider sequencing errors.
+* If you generate more data you have to start the clustering process all over again as population of sequences matters.
+* I’m sure there is more
+
+A Comparison study
+<img src="bioinformatics_figures/bioinformatics_figure3.png" alt="bioinformatics_figure4" width="800px"/>
+
 ## Abundance
