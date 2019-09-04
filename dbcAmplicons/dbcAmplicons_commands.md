@@ -132,7 +132,7 @@ View the help documentation and generate the results. When you provide dbcAmplic
 	dbcAmplicons abundance -S metadata/workshopSamplesheet.txt -O Workshop.results/16sV3V5 -F Workshop.intermediate/MCA_Workshop/workshop-16SV3V5.fixrank --biom > abundance.16sV3V5.log
 	cat abundance.16sV3V5.log
 
-Try changing the -r parameter see what changes? what about the -t parameter? Once done playing rerun the above to get the final biom file for the next phase of analysis.
+Try changing the -r parameter see what changes? what about the -t parameter? How about -m and -M? Look at the histogram generated in join, what min/max would you choose, how does it affect results? Once done playing rerun the above to get the final biom file for the next phase of analysis.
 
 dbcAmplicons abundance command above (with --biom) produces four files: abundance, proportions, tax_info and biom files. Using cat, less, or more view these files. What do you see?
 

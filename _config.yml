@@ -38,7 +38,7 @@ navigation:
   - title: dbcAmplicons Installing Software
     url: dbcAmplicons/dbcAmplicons_installing_software
   - title: dbcAmplicons - Amplicons talk
-    url: dbcAmplicons/dbcAmplicons_Amplicons.pdf
+    url: dbcAmplicons/dbcAmplicons_Amplicons
   - title: dbcAmplicons - Bioinformatics talk
     url: dbcAmplicons/dbcAmplicons_Bioinformatics.pdf
   - title: Dataset and Metadata
