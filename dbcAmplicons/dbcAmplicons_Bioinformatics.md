@@ -8,7 +8,7 @@ Requires 3 columns: BarcodeID [a name for the pair], Index1 (Read2 in RC), Index
 Orientation is important, but you can change in the preprocess arguments.
 First line is a comment and just help me remembers.
 
-<div class="script">#BarcodeID      Read2RC Read3
+<div class="output">#BarcodeID      Read2RC Read3
 P7LeelaR1.P5LeelaF1	TAAGGCGA	TAGATCGC
 P7LeelaR1.P5LeelaF2	TAAGGCGA	CTCTCTAT
 P7LeelaR1.P5LeelaF3	TAAGGCGA	TATCCTCT
@@ -26,7 +26,7 @@ P7LeelaR1.P5LeelaF9	TAAGGCGA	TGAACCTT
 
 Requires 4 columns: the read in which the primer should be checked for (allowable are P5/P7, R1/R2, READ1/READ2, F/R,  FORWARD/REVERSE, Primer Pair ID describes which should be found ‘together’, Primer ID individual id, and sequence (IUPAC ambiguity characters are allowed).  
 
-<div class="script">#Read	Pair_ID	Primer_ID	Sequence
+<div class="output">#Read	Pair_ID	Primer_ID	Sequence
 P5	16S_V3V5	319F_1	GTACTCCTACGGGAGGCAGCAGT
 P5	16S_V3V5	319F_2	CGTACTCCTACGGGAGGCAGCAGT
 P5	16S_V3V5	319F_3	TCGTACTCCTACGGGAGGCAGCAGT
@@ -45,7 +45,7 @@ Requires 4 columns and a header: SampleID samples name, PrimerPairID same as in 
 
 Additional columns are allowed and will be added to the biom file in dbcAmplicons abundances.
 
-<div class="script">SampleID	PrimerPairID	BarcodeID	ProjectID	Treatment	Timepoint	Replicate
+<div class="output">SampleID	PrimerPairID	BarcodeID	ProjectID	Treatment	Timepoint	Replicate
 sample1	16S_V3V5	P7LeelaR9.P5LeelaF7	MCA_Workshop/workshop-6SV3V5	ABC_Control	T1	4
 sample2	16S_V3V5	P7LeelaR10.P5LeelaF9	MCA_Workshop/workshop-6SV3V5	ABC_Condition1	T1	1
 sample3	16S_V3V5	P7LeelaR10.P5LeelaF11	MCA_Workshop/workshop-6SV3V5	ABC_Condition1	T1	2
@@ -105,7 +105,7 @@ Preprocessing reads
 <img src="bioinformatics_figures/bioinformatics_figure1.png" alt="bfigure1"
 width="800px"/>
 
-<div class="script">usage: dbcAmplicons [-h] [--version]
+<div class="output">usage: dbcAmplicons [-h] [--version]
                     {validate,preprocess,join,screen,classify,abundance,extract}
                     ...
 
@@ -249,7 +249,7 @@ For each read determine which organism is likely came from.
 **Output:**
 fixrank file  
 
-<div class="script">M02034:401:000000000-C8N5M:1:1101:11714:1767|sample29:16S_V3V5:428              Bacteria        domain  1.0     "Proteobacteria"        phylum  1.0     Betaproteobacteria      class   0.96    Burkholderiales order   0.46    Burkholderiales_incertae_sedis  family  0.31    Thiobacter      genus   0.31
+<div class="output">M02034:401:000000000-C8N5M:1:1101:11714:1767|sample29:16S_V3V5:428              Bacteria        domain  1.0     "Proteobacteria"        phylum  1.0     Betaproteobacteria      class   0.96    Burkholderiales order   0.46    Burkholderiales_incertae_sedis  family  0.31    Thiobacter      genus   0.31
 M02034:401:000000000-C8N5M:1:1101:10173:1770|sample37:16S_V3V5:424              Bacteria        domain  1.0     "Proteobacteria"        phylum  1.0     Deltaproteobacteria     class   1.0     Myxococcales    order   1.0     Nannocystaceae  family  0.94    Pseudenhygromyxa        genus   0.31
 M02034:401:000000000-C8N5M:1:1101:10965:1770|sample37:16S_V3V5:424              Bacteria        domain  1.0     "Bacteroidetes" phylum  1.0     Sphingobacteriia
         class   0.78    "Sphingobacteriales"    order   0.78    "Saprospiraceae"        family  0.53    Phaeodactylibacter      genus   0.53
@@ -313,7 +313,7 @@ Biom file (Biological Observation Matrix)
 The [BIOM](http://biom-format.org) file format (canonically pronounced biome) is designed to be a general-use format for representing biological sample by observation contingency tables. BIOM is a recognized standard for the Earth Microbiome Project and is a Genomics Standards Consortium supported project. Contains the abundance counts, the sample names, full taxonomic string [domain through genus/species], and any sample metadata in the sample sheet.
 
 ### Abundance file
-<div class="script">Taxon_Name	Level	sample1	sample10	sample11	sample12	sample13	sample14	sample15	sample16	sample17	sample18	sample19	sample2	sample20	sample21	sample22	sample23	sample24	sample25	sample26	sample27	sample28	sample29	sample3	sample30	sample31	sample32	sample33	sample34	sample35	sample36	sample37	sample38	sample39	sample4	sample40	sample41	sample42	sample43	sample44	sample45	sample46	sample47	sample48	sample5	sample6	sample7	sample8	sample9
+<div class="output">Taxon_Name	Level	sample1	sample10	sample11	sample12	sample13	sample14	sample15	sample16	sample17	sample18	sample19	sample2	sample20	sample21	sample22	sample23	sample24	sample25	sample26	sample27	sample28	sample29	sample3	sample30	sample31	sample32	sample33	sample34	sample35	sample36	sample37	sample38	sample39	sample4	sample40	sample41	sample42	sample43	sample44	sample45	sample46	sample47	sample48	sample5	sample6	sample7	sample8	sample9
 Bacteria	domain	2144	2303	3235	2895	2584	2465	2907	2651	2751	3022	2904	3034	2547	2908	1946	2790	2146	2291	2046	2283	2292	2349	2483	2126	2336	2576	2478	1909	2666	2672	2605	2403	2552	2795	2073	2519	3647	3352	3559	3270	2337	2835	2258	2214	3315	3078	2848	3107
 Acetothermia_genera_incertae_sedis	genus	0	0	0	0	0	0	0	0	0	0	0	0	0	0	00	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	00	0	0	0	0	0	0	0	0	1	0	0
 Acidobacteria	phylum	29	18	40	36	33	42	37	35	42	25	40	19	43	34	24	32	33	23	23	21	26	34	22	27	33	33	26	28	36	28	19	34	28	39	28	30	44	34	41	29	28	21	29	28	27	35	32	35
@@ -326,7 +326,7 @@ Gp15	genus	13	66	52	31	42	39	51	28	20	36	42	19	28	44	24	33	36	32	28	15	42	36	25	
 </div>
 
 ### Proportions file
-<div class="script">Taxon_Name	Level	sample1	sample10	sample11	sample12	sample13	sample14	sample15	sample16	sample17	sample18	sample19	sample2	sample20	sample21	sample22	sample23	sample24	sample25	sample26	sample27	sample28	sample29	sample3	sample30	sample31	sample32	sample33	sample34	sample35	sample36	sample37	sample38	sample39	sample4	sample40	sample41	sample42	sample43	sample44	sample45	sample46	sample47	sample48	sample5	sample6	sample7	sample8	sample9
+<div class="output">Taxon_Name	Level	sample1	sample10	sample11	sample12	sample13	sample14	sample15	sample16	sample17	sample18	sample19	sample2	sample20	sample21	sample22	sample23	sample24	sample25	sample26	sample27	sample28	sample29	sample3	sample30	sample31	sample32	sample33	sample34	sample35	sample36	sample37	sample38	sample39	sample4	sample40	sample41	sample42	sample43	sample44	sample45	sample46	sample47	sample48	sample5	sample6	sample7	sample8	sample9
 Bacteria	domain	0.0402274049196	0.0489947877885	0.0496196085649	0.0535337845335	0.0501620950051	0.0449916040009	0.0449283649908	0.045650227304	0.0440519463883	0.0485695917711	0.0463475748919	0.0512378829331	0.0443991214308	0.0471878752475	0.0444373401535	0.0472865326599	0.0442273607848	0.0436206469793	0.0363345764518	0.0410161513447	0.0454590531347	0.0415340547422	0.0412849375655	0.0391182748215	0.0444224698589	0.0418589535262	0.0424169804861	0.0458894230769	0.0456475583864	0.0469992260606	0.0496389031803	0.0432513184183	0.0484140233723	0.0441304176206	0.0425772264213	0.0473977345426	0.0484355078623	0.0427752893585	0.0442959201454	0.0480606710857	0.0442873656882	0.0459272939347	0.0433147899482	0.0356722790623	0.0491438736936	0.0433496704411	0.040628254326	0.0462957444272
 Acetothermia_genera_incertae_sedis	genus	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.40837135936e-05	0.0	0.0
 Acidobacteria	phylum	0.000544120682215	0.000382937985321	0.000613534572673	0.000665705092644	0.000640614990391	0.0007665912243560.000571843654854	0.000602700096432	0.000672548799821	0.000401800064288	0.000638396348373	0.000320870064512	0.0007495729177560.000551715185149	0.000548045305079	0.000542354496458	0.000680103870409	0.000437920070067	0.00040845320547	0.0003772839151290.000515678613221	0.000601174057571	0.000365794855594	0.000496798410245	0.00062754345263	0.000536236594085	0.0004450530640190.000673076923077	0.000616396137251	0.000492506859917	0.000362049581737	0.000611962058352	0.00053118834421	0.0006157732691240.000575090371344	0.000564482745644	0.00058436039099	0.00043387823335	0.000510292982849	0.000426226135011	0.000530614565370.000340202177294	0.000556301553808	0.00045113993394	0.000400266844563	0.000492929975776	0.000456497239618	0.000521516271308
@@ -341,7 +341,7 @@ Gp15	genus	0.000243916167889	0.00140410594618	0.000797594944475	0.00057324605199
 
 Supplies extra information about the tax identified in the experiment as well as the full taxonomic path.
 
-<div class="script">Taxon_Name	MeanBootstrapValue	MeanLengthMerged	PercentageAsPairs	Total
+<div class="output">Taxon_Name	MeanBootstrapValue	MeanLengthMerged	PercentageAsPairs	Total
 d__Bacteria	0.997	421	0.0	126506
 d__Bacteria;p__Acetothermia;c__Acetothermia_genera_incertae_sedis;o__Acetothermia_genera_incertae_sedis;f__Acetothermia_genera_incertae_sedis;g__Acetothermia_genera_incertae_sedis	0.56	421	0.0	1
 d__Bacteria;p__Acidobacteria	0.605	424	0.0	1483
