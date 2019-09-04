@@ -29,7 +29,10 @@ and two other directors
 
 	mkdir /share/workshop/$USER/mca_example/src
 	mkdir /share/workshop/$USER/mca_example/bin
-
+	
+---
+---
+	
 **2\.** Now lets add the new bin directory to our PATH in a dbcA_profile file
 
 	echo 'export PATH=/share/workshop/$USER/mca_example/bin:$PATH' > /share/workshop/$USER/mca_example/src/dbcA_profile
