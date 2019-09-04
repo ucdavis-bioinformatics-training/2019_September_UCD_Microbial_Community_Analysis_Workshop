@@ -46,6 +46,7 @@ Take a look at the files ... what is inside the metadata folder?
 
 View the metadata files in the folder
 
-If all this is correct, we are ready to begin. If our environment isn't already sourced, lets do so.
+If all this is correct, we are ready to begin. If our environment isn't already sourced, lets do so and then test.
 
 	source /share/workshop/$USER/mca_example/src/dbcA_profile
+	dbcVersionReport.sh
