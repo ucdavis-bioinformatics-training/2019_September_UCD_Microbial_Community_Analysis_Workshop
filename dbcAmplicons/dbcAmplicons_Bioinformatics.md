@@ -94,16 +94,16 @@ Each quality character has a numerical value associated with it (ASCII value). I
 
 <img src="bioinformatics_figures/filetypes_figure5.png" alt="figure5" width="800px"/>
 
-<img src="bioinformatics_figures/filetypes_figure4b.png" alt="figure4b" width="400px"/>
+<img src="bioinformatics_figures/filetypes_figure4b.png" alt="figure4b" width="600px"/>
 
-<img src="bioinformatics_figures/filetypes_figure4a.png" alt="figure4a" width="400px"/>
+<img src="bioinformatics_figures/filetypes_figure4a.png" alt="figure4a" width="600px"/>
 
 # dbcAmplicons
 
 Preprocessing reads
 
 <img src="bioinformatics_figures/bioinformatics_figure1.png" alt="bfigure1"
-width="400px"/>
+width="800px"/>
 
 <div class="script">usage: dbcAmplicons [-h] [--version]
                     {validate,preprocess,join,screen,classify,abundance,extract}
@@ -135,7 +135,7 @@ For questions or comments, please contact Matt Settles <settles@ucdavis.edu>
 dbcAmplicons version: 0.9.1
 </div>
 
-Application specific downstream
+### Application specific downstream
 
 #### Population Community Profiling ( i.e. microbial, bacterial, fungal, etc. )
 dbcAmplicons Python Application
@@ -188,7 +188,7 @@ Preprocessed reads
 Identified_Barcodes.txt  
 
 <img src="bioinformatics_figures/bioinformatics_figure2.png" alt="bfigure2"
-width="400px"/>
+width="800px"/>
 
 **Barcode Comparison** - compares each barcode to all possible barcodes and returns the best match < desired edit distance.
 
@@ -197,7 +197,7 @@ width="400px"/>
 #### The new read header
 
 <img src="bioinformatics_figures/bioinformatics_figure3.png" alt="bfigure3"
-width="400px"/>
+width="800px"/>
 
 ## Join
 
@@ -225,15 +225,15 @@ Consider the three scenarios below
 
 **Insert size < length of the number of cycles (10bp min)**
 
-<img src="preproc_figures/overlap_single.png" alt="overlap_single" width="800px"/>
+<img src="bioinformatics_figures/overlap_single.png" alt="overlap_single" width="800px"/>
 
 **Insert size < length of the read length**
 
-<img src="preproc_figures/overlap_adapter.png" alt="overlap_adapter" width="800px"/>
+<img src="bioinformatics_figures/overlap_adapter.png" alt="overlap_adapter" width="800px"/>
 
 Overlapping produces histograms of the overlapped Reads
 
-<img src="preproc_figures/overlap_histogram.png" alt="overlap_histogram" width="800px"/>
+<img src="bioinformatics_figures/overlap_histogram.png" alt="overlap_histogram" width="800px"/>
 
 ## Classify
 
