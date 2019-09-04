@@ -93,10 +93,8 @@ body {
   padding:0px 0px 0px 20px;
   font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, Consolas, Liberation Mono, DejaVu Sans Mono, Courier New, monospace;
   white-space: pre;
-  color: #333333;
   font-size: 10pt;
   overflow-y: scroll;
-  background-color:Gray;
 }
 
 .r_output {
@@ -107,7 +105,6 @@ body {
   white-space: pre;
   color: #yellow;
   font-size: 10pt;
-  background-color: #F8EECC;
 
 }
 
