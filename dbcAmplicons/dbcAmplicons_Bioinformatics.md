@@ -221,7 +221,7 @@ Consider the three scenarios below
 
 **Insert size > length of the number of cycles**
 
-<img src="preproc_figures/overlap_pairs.png" alt="overlap_pairs" width="800px"/>
+<img src="bioinformatics_figures/overlap_pairs.png" alt="overlap_pairs" width="800px"/>
 
 **Insert size < length of the number of cycles (10bp min)**
 
