@@ -21,7 +21,7 @@ Uses the Illumina platform (mainly the MiSeq), capably of pooling thousands, or 
 
 Core Facility friendly, facilitates interactions between and across individual labs, standardizing workflows.
 
-<img src="amplicons_figures/amplicons_figure2.png" alt="amplicons_figure2" width="500px"/>
+<img src="amplicons_figures/amplicons_figure2.png" alt="amplicons_figure2" width="800px"/>
 
 **Amplicons: Two Step PCR Approach**
 
@@ -29,15 +29,15 @@ Core Facility friendly, facilitates interactions between and across individual l
 * Adapters and barcodes are not included in the target specific primers which allows for maximum flexibility in target specific primer usage and the ability to swap out targets, or include multiple targets in the same sequencing reaction without needing to purchase a large number of barcoded, target specific primers.
 * Barcodes are included in both adapters, therefor a pair of barcodes are used to uniquely identify a samples. This allows for 32 barcode pairs to be able to uniquely identify 1024 samples.
 
-<img src="amplicons_figures/amplicons_figure3.png" alt="amplicons_figure3" width="500px"/>
+<img src="amplicons_figures/amplicons_figure3.png" alt="amplicons_figure3" width="800px"/>
 
 ### Multiplex multiple amplicons targets
 
-<img src="amplicons_figures/amplicons_figure4.png" alt="amplicons_figure4" width="500px"/>
+<img src="amplicons_figures/amplicons_figure4.png" alt="amplicons_figure4" width="650px"/>
 
 ## Primer Design
 
-<img src="amplicons_figures/amplicons_figure5.png" alt="amplicons_figure5" width="500px"/>
+<img src="amplicons_figures/amplicons_figure5.png" alt="amplicons_figure5" width="650px"/>
 Prokaryote 16S Gene
 
 ### PCR1 Template specific primer design
@@ -56,7 +56,7 @@ Each primer pair contains the following parts
 
 #### Examples PCR1 Template Specific Primers 16S V1-V3 (27F and 534R)
 
-<img src="amplicons_figures/amplicons_figure7.png" alt="amplicons_figure7" width="500px"/>
+<img src="amplicons_figures/amplicons_figure7.png" alt="amplicons_figure7" width="800px"/>
 
 ### PCR2 Barcoded Illumina Adapter Primers
 
@@ -69,15 +69,15 @@ Each primer pair contains the following parts
 
 #### Examples PCR2 Barcoded Illumina Adapter Primers
 
-<img src="amplicons_figures/amplicons_figure8.png" alt="amplicons_figure8" width="500px"/>
+<img src="amplicons_figures/amplicons_figure8.png" alt="amplicons_figure8" width="800px"/>
 
 ### Final product
 
-<img src="amplicons_figures/amplicons_figure8b.png" alt="amplicons_figure8b" width="500px"/>
+<img src="amplicons_figures/amplicons_figure8b.png" alt="amplicons_figure8b" width="800px"/>
 
 **QA/QC What is a "good" library?**
 
-<img src="amplicons_figures/amplicons_figure9.png" alt="amplicons_figure9" width="500px"/>
+<img src="amplicons_figures/amplicons_figure9.png" alt="amplicons_figure9" width="800px"/>
 
 #### Benefits
 
@@ -95,16 +95,16 @@ Each primer pair contains the following parts
 
 Critically important for imaging clusters, and data quality!
 
-<img src="amplicons_figures/amplicons_figure10.png" alt="amplicons_figure10" width="500px"/>
+<img src="amplicons_figures/amplicons_figure10.png" alt="amplicons_figure10" width="600px"/>
 
 Once a sample library is converted to clusters on a flow cell, “nucleotide diversity” refers to the distribution of nucleotides across the flow cell at any given cycle. From the viewpoint of the instrument software, a high diversity library translates into analyzing images containing an even distribution of spots from 4 different color channels corresponding to the 4 nucleotide bases A, T, C & G. In contrast, an unbalanced nucleotide distribution or “low diversity library” means that for any given image, or to two bases are present at a high percentage.
 
 **LOW** Diversity Library
-<img src="amplicons_figures/amplicons_figure11.png" alt="amplicons_figure11" width="500px"/>
+<img src="amplicons_figures/amplicons_figure11.png" alt="amplicons_figure11" width="600px"/>
 
 
 **HIGH** Diversity Library
-<img src="amplicons_figures/amplicons_figure12.png" alt="amplicons_figure12" width="500px"/>
+<img src="amplicons_figures/amplicons_figure12.png" alt="amplicons_figure12" width="600px"/>
 
 ### Ways to Ensure Nucleotide Diversity
 
