@@ -3,7 +3,11 @@ Experiment Metadata
 
 This document assumes [dbcAmplicons installing software](./dbcAmplicons_installing_software.md) has been completed.
 
-**IF** for some reason it didn't finish, is corrupted or you missed the session, you can use my instance. Create the file /share/workshop/$USER/mca_example/src edit the lines to use my folders
+**IF** for some reason it didn't finish, is corrupted or you missed the session, you can use my instance. Create or edit the file
+
+	/share/workshop/$USER/mca_example/src/dbcA_profile
+
+edit the contents (use nano) to use my environment.
 
 <div class="script">export PATH=/share/workshop/msettles/mca_example/bin:$PATH
 module load java/jdk1.8
@@ -42,4 +46,6 @@ Take a look at the files ... what is inside the metadata folder?
 
 View the metadata files in the folder
 
-If all this is correct, we are ready to begin.
+If all this is correct, we are ready to begin. If our environment isn't already sourced, lets do so.
+
+	source /share/workshop/$USER/mca_example/src/dbcA_profile
