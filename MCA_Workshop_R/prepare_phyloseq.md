@@ -17,7 +17,8 @@ Learn more about packrat see <https://rstudio.github.io/packrat/>
 We first need to make sure we have the necessary packages, phyloseq, ggplot2, gridExtra, gridR, ape, and edgeR are installed (if not install it), and then load
 
 In the R console run the following commands
-```{r setup, results='hide', warning=FALSE, error=FALSE, message=FALSE, collapse=TRUE}
+
+```r
 if (!any(rownames(installed.packages()) == "phyloseq")){
   if (!requireNamespace("BiocManager", quietly = TRUE))
       install.packages("BiocManager")
@@ -70,13 +71,15 @@ library(dada2)
 ### Download the template Markdown workshop document and open it
 
 In the R console run the following command
-```{r download, results='hide', warning=F, error=F, message=FALSE}
+
+```r
 download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2019_September_UCD_Microbial_Community_Analysis_Workshop/master/MCA_Workshop_R/phyloseq.Rmd", "MCA_phyloseq.Rmd")
 ```
 
 ### Download the data file for the workshop document and preview/open it
 
-```{r download2, results='hide', warning=F, error=F}
+
+```r
 download.file("https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2019_September_UCD_Microbial_Community_Analysis_Workshop/master/MCA_Workshop_R/16sV3V5.biom", "16sV3V5.biom")
 ```
 

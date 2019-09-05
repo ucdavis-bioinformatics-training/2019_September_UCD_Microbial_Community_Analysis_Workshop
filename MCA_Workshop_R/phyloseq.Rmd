@@ -1,5 +1,5 @@
 ---
-title: "Prepare Differential Expression"
+title: "Microbial Community Analysis"
 author: "Bioinformatics Core"
 output:
     html_document:
@@ -10,7 +10,7 @@ output:
 
 The phyloseq package is fast becoming a good way a managing micobial community data, filtering and visualizing that data and performing analysis such as ordination. Along with the standard R environment and packages vegan and vegetarian you can perform virtually any analysis. Today we will
 
-1.  Load data straight from dbcAmplicons (biom file)
+1. Load data straight from dbcAmplicons (biom file)
 2. Filter out Phylum
 3. Filter out additional Taxa
 4. Filter out samples
@@ -18,12 +18,22 @@ The phyloseq package is fast becoming a good way a managing micobial community d
 6. Ordination
 7. Differential Abundances
 
+## Load our libraries
+
+```{r library}
+library(phyloseq)
+library(biomformat)
+library(ggplot2)
+library(gridExtra)
+library(vegan)
+library(edgeR)
+```
+
 ## Read in the dataset, biom file generated from dbcAmplicons pipeline
 
 First read in the dataset, see what the objects look like. Our Biom file, produces 3 tables: otu_table, taxa_table, sample_data. Look at the head of each. Get the sample names and tax ranks, finally view the phyloseq object. Lets draw a first bar plot.
 
-
-```{r readbiom, fig.width=10, fig.height=8}
+```{r readbiom, fig.width=6, fig.height=6}
 s16sV3V5 = import_biom(BIOMfilename = "16sV3V5.biom", parseFunction = parse_taxonomy_default)
 
 # this changes the columns names to kingdon through genus
@@ -43,6 +53,13 @@ plot_bar(s16sV3V5, fill = "Phylum") + theme(legend.position="bottom" ) +  scale_
 
 ## Filtering our dataset
 
+First lets remove of the feature with ambiguous phylum annotation.
+
+```{r}
+s16sV3V5 <- subset_taxa(s16sV3V5, !is.na(Phylum) & !Phylum %in% c("", "uncharacterized"))
+s16sV3V5
+```
+
 Lets generate a prevelance table (number of samples each taxa occurs in) for each taxa.
 ```{r}
 prevelancedf = apply(X = otu_table(s16sV3V5),
@@ -59,47 +76,45 @@ prevelancedf[1:10,]
 
 ### Whole phylum filtering
 
-First lets remove of the feature with ambiguous phylum annotation.
-
-```{r}
-s16sV3V5.1 <- subset_taxa(s16sV3V5, !is.na(Phylum) & !Phylum %in% c("", "uncharacterized"))
-s16sV3V5.1
-```
-
 Now lets investigate low prevelance/abundance phylum and subset them out.
 
 ```{r}
-plyr::ddply(prevelancedf, "Phylum", function(df1){
+summary_prevalence <- plyr::ddply(prevelancedf, "Phylum", function(df1){
   data.frame(mean_prevalence=mean(df1$Prevalence),total_abundance=sum(df1$TotalAbundance,na.rm = T),stringsAsFactors = F)
-  })
+})
+summary_prevalence
 ```
 
 Using the table above, determine the phyla to filter
 ```{r}
-phyla2Filter = c("p__Aquificae", "p__candidate division ZB3", "p__Crenarchaeota",
-                 "p__Deinococcus-Thermus","p__Omnitrophica","p__Tenericutes",
-                 "p__Thermodesulfobacteria")
-# Filter entries with unidentified Phylum.
-s16sV3V5.1 = subset_taxa(s16sV3V5.1, !Phylum %in% phyla2Filter)
+sum(summary_prevalence$total_abundance)*0.001
+table(summary_prevalence$total_abundance/sum(summary_prevalence$total_abundance) >= 0.001)
+keepPhyla <- summary_prevalence$Phylum[summary_prevalence$total_abundance/sum(summary_prevalence$total_abundance) >= 0.001]
+
+s16sV3V5.1 = subset_taxa(s16sV3V5, Phylum %in% keepPhyla)
+summary_prevalence <- summary_prevalence[summary_prevalence$Phylum %in% keepPhyla,]
+summary_prevalence
+
 s16sV3V5.1
 ```
 
 ### Individual Taxa Filtering
 
 Subset to the remaining phyla by prevelance.
-```{r fig.width=10, fig.height=10}
+```{r fig.width=6, fig.height=6}
 prevelancedf1 = subset(prevelancedf, Phylum %in% get_taxa_unique(s16sV3V5.1, taxonomic.rank = "Phylum"))
 ggplot(prevelancedf1, aes(TotalAbundance,Prevalence / nsamples(s16sV3V5.1),color=Phylum)) +
   # Include a guess for parameter
-  geom_hline(yintercept = 0.05, alpha = 0.5, linetype = 2) + geom_point(size = 2, alpha = 0.7) +
+  geom_hline(yintercept = 0.10, alpha = 0.5, linetype = 2) + geom_point(size = 2, alpha = 0.7) +
   scale_x_log10() +  xlab("Total Abundance") + ylab("Prevalence [Frac. Samples]") +
   facet_wrap(~Phylum) + theme(legend.position="none")
 ```
 
 Sometimes you see a clear break, however we aren't seeing one here. In this case I'm moslty interested in those organisms consistantly present in the dataset, so I'm removing all taxa present in less than 50% of samples.
-```{r fig.width=10, fig.height=8}
-#  Define prevalence threshold as 50% of total samples
-prevalenceThreshold = 0.50 * nsamples(s16sV3V5.1)
+
+```{r fig.width=6, fig.height=6}
+#  Define prevalence threshold as 10% of total samples ~ set of replicates
+prevalenceThreshold = 0.10 * nsamples(s16sV3V5.1)
 prevalenceThreshold
 
 # Execute prevalence filter, using `prune_taxa()` function
@@ -109,10 +124,10 @@ s16sV3V5.2 = prune_taxa(keepTaxa, s16sV3V5.1)
 s16sV3V5.2
 ```
 
-Agglomerate taxa at the Genus level (combine all with the same name) and remove all taxa without genus level assignment
-```{r  fig.width=10, fig.height=8}
+Agglomerate taxa at the Genus level (combine all with the same name) keeping all taxa without genus level assignment
+```{r fig.width=6, fig.height=6}
 length(get_taxa_unique(s16sV3V5.2, taxonomic.rank = "Genus"))
-s16sV3V5.3 = tax_glom(s16sV3V5.2, "Genus", NArm = TRUE)
+s16sV3V5.3 = tax_glom(s16sV3V5.2, "Genus", NArm = FALSE)
 s16sV3V5.3
 
 ## out of curiosity how many "reads" does this leave us at???
@@ -122,17 +137,13 @@ sum(colSums(otu_table(s16sV3V5.3)))
 ## Now lets filter out samples (outliers and low performing samples)
 
 Do some simple ordination looking for outlier samples, first we variance stabilize the data with a log transform, the perform PCoA using bray's distances
-```{r  fig.width=10, fig.height=8}
+```{r  fig.width=6, fig.height=6}
 logt  = transform_sample_counts(s16sV3V5.3, function(x) log(1 + x) )
-out.pcoa.logt <- ordinate(logt, method = "PCoA", distance = "bray")
+out.pcoa.logt <- ordinate(logt, method = "MDS", distance = "bray")
 evals <- out.pcoa.logt$values$Eigenvalues
 plot_ordination(logt, out.pcoa.logt, type = "samples",
-                color = "Slash_pile_number", shape = "Depth_cm") + labs(col = "Slash pile number") +
-  coord_fixed(sqrt(evals[2] / evals[1]))
-plot_ordination(logt, out.pcoa.logt, type = "species", color = "Phylum")
-  coord_fixed(sqrt(evals[2] / evals[1]))
-out.pcoa.logt$vectors[,1:2]
-
+                color = "Treatment", shape = "Timepoint") + labs(col = "Treatment") +
+                coord_fixed(sqrt(evals[2] / evals[1]))
 ```
 
 You could also use the MDS method of ordination here, edit the code to do so. Can also edit the distance method used to jaccard, jsd, euclidean. Play with changing those parameters
@@ -145,32 +156,34 @@ You could also use the MDS method of ordination here, edit the code to do so. Ca
 ?ordinate
 ```
 
-Show taxa proportions per sample
-```{r  fig.width=10, fig.height=10}
+Show taxa proportions per sample (quickplot)
+```{r  fig.width=6, fig.height=8}
 grid.arrange(nrow = 3,
-qplot(as(otu_table(logt),"matrix")[, "Slashpile18"], geom = "histogram", bins=30) +
+qplot(as(otu_table(logt),"matrix")[, "sample1"], geom = "histogram", bins=30) +
   xlab("Relative abundance"),
 
-qplot(as(otu_table(logt),"matrix")[, "Slashpile10"], geom = "histogram", bins=30) +
+qplot(as(otu_table(logt),"matrix")[, "sample34"], geom = "histogram", bins=30) +
   xlab("Relative abundance"),
 
-qplot(as(otu_table(logt),"matrix")[, "Slashpile11"], geom = "histogram", bins=30) +
+qplot(as(otu_table(logt),"matrix")[, "sample44"], geom = "histogram", bins=30) +
   xlab("Relative abundance")
 )
 # if you needed to remove candidate outliers, can use the below to remove sample Slashpile18
-#s16sV3V5.4 <- prune_samples(sample_names(s16sV3V5.4) != "Slashpile18", s16sV3V5.4)
+#s16sV3V5.pruned <- prune_samples(sample_names(s16sV3V5.3) != c("sample1","sample2"), s16sV3V5.3)
 ```
 
 Look for low perfroming samples
-```{r  fig.width=10, fig.height=8}
-qplot(colSums(otu_table(s16sV3V5.3)),bins=30) +
-  xlab("Logged counts-per-sample")
+```{r  fig.width=6, fig.height=6}
+qplot(colSums(otu_table(s16sV3V5.3)),bins=30) + xlab("Logged counts-per-sample")
 s16sV3V5.4 <- prune_samples(sample_sums(s16sV3V5.3)>=10000, s16sV3V5.3)
 s16sV3V5.4
 ```
 
 Investigate transformations. We transform microbiome count data to account for differences in library size, variance, scale, etc.
-```{r  fig.width=10, fig.height=8}
+
+* RLE -  is the scaling factor method proposed by Anders and Huber (2010). We call it “relative log expression”, as median library is calculated from the geometric mean of all columns and the median ratio of each sample to the median library is taken as the scale factor.
+
+```{r fig.width=6, fig.height=8}
 ## for Firmictures
 plot_abundance = function(physeq, meta, title = "",
 			     Facet = "Order", Color = "Order"){
@@ -187,79 +200,107 @@ plot_abundance = function(physeq, meta, title = "",
     theme(legend.position="none")
 }
 
-# transform counts into "abundances"
+# transform counts into "relative abundances"
 s16sV3V5.4ra = transform_sample_counts(s16sV3V5.4, function(x){x / sum(x)})
 
+# transform counts into "hellinger standardized counts"
 s16sV3V5.4hell <- s16sV3V5.4
 otu_table(s16sV3V5.4hell) <- otu_table(decostand(otu_table(s16sV3V5.4hell), method = "hellinger"), taxa_are_rows=TRUE)
 
-s16sV3V5.4log <- transform_sample_counts(s16sV3V5.4, function(x) log(1 + x))
+# RLE counts
+s16sV3V5.4RLE <- s16sV3V5.4
+RLE_normalization <- function(phyloseq){
+  prior.count = 1
+  count_scale = median(sample_sums(phyloseq))
+  m = as(otu_table(phyloseq), "matrix")
+  d = DGEList(counts=m, remove.zeros = FALSE)
+  z = calcNormFactors(d, method="RLE")
+  y <- as.matrix(z)
+  lib.size <- z$samples$lib.size * z$samples$norm.factors
+  ## rescale to median sample count
+  out <- round(count_scale * sweep(y,MARGIN=2, STATS=lib.size,FUN = "/"))
+  dimnames(out) <- dimnames(y)
+  out
+}
+otu_table(s16sV3V5.4RLE) <- otu_table(RLE_normalization(s16sV3V5.4), taxa_are_rows=TRUE)
+s16sV3V5.4logRLE = transform_sample_counts(s16sV3V5.4RLE, function(x){ log2(x +1)})
 
-plotOriginal = plot_abundance(s16sV3V5.4, "Slash_pile_number", title="original")
-plotRelative = plot_abundance(s16sV3V5.4ra, "Slash_pile_number", title="relative")
-plotHellinger = plot_abundance(s16sV3V5.4hell, "Slash_pile_number", title="Hellinger")
-plotLog = plot_abundance(s16sV3V5.4log, "Slash_pile_number", title="Log")
+plotOriginal = plot_abundance(s16sV3V5.4, "Treatment", title="original")
+plotRelative = plot_abundance(s16sV3V5.4ra, "Treatment", title="relative")
+plotHellinger = plot_abundance(s16sV3V5.4hell, "Treatment", title="Hellinger")
+plotLogRLE = plot_abundance(s16sV3V5.4logRLE, "Treatment", title="Log")
 # Combine each plot into one graphic.
-grid.arrange(nrow = 4, plotOriginal, plotRelative, plotHellinger, plotLog)
+grid.arrange(nrow = 4, plotOriginal, plotRelative, plotHellinger, plotLogRLE)
 ```
 
 [Normalization and microbial differential abundance strategies depend upon data characteristics]
 (https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0237-y)
 
-## Graphical Summaries
 
-```{r  fig.width=10, fig.height=8}
-plot_richness(s16sV3V5.4, measures=c("Observed","Chao1"))
+```{r fig.width=6, fig.height=8}
+plot_richness(s16sV3V5.4RLE, measures=c("Observed","Chao1"))
 
-plot_richness(s16sV3V5.4, x = "Slash_pile_number", color="Depth_cm", measures=c("Chao1", "Shannon"))
+plot_richness(s16sV3V5.4RLE, x = "Treatment", color="Timepoint", measures=c("Chao1", "Shannon"))
 # Other Richness measures, "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher" try some of these others.
 
+er <- estimate_richness(s16sV3V5.4RLE, measures=c("Chao1", "Shannon"))
+
+res.aov <- aov(er$Shannon ~ Treatment + Timepoint, data = as(sample_data(s16sV3V5.4RLE),"data.frame"))
+# Summary of the analysis
+summary(res.aov)
+```
+
+
+## Graphical Summaries
+
+```{r fig.width=6, fig.height=8}
 # Subset dataset by phylum
-s16sV3V5.4hell_acidob = subset_taxa(s16sV3V5.4hell, Phylum=="p__Acidobacteria")
+s16sV3V5.4RLE_acidob = subset_taxa(s16sV3V5.4RLE, Phylum=="p__Acidobacteria")
 title = "plot_bar; Acidobacteria-only"
-plot_bar(s16sV3V5.4hell_acidob, "Slash_pile_number", "Abundance", "Family", title=title)
+plot_bar(s16sV3V5.4RLE_acidob, "Treatment", "Abundance", "Family", title=title)
 
 prop  = transform_sample_counts(s16sV3V5.4, function(x) x / sum(x) )
 keepTaxa <- ((apply(otu_table(prop) >= 0.005,1,sum,na.rm=TRUE) > 2) | (apply(otu_table(prop) >= 0.05, 1, sum,na.rm=TRUE) > 0))
 table(keepTaxa)
-s16sV3V5.4hell_trim <- prune_taxa(keepTaxa,s16sV3V5.4hell)
+s16sV3V5.4RLE_trim <- prune_taxa(keepTaxa,s16sV3V5.4RLE)
 
-plot_heatmap(s16sV3V5.4hell_trim, "PCoA", distance="bray", sample.label="Slash_pile_number", taxa.label="Genus", low="#FFFFCC", high="#000033", na.value="white")
+plot_heatmap(s16sV3V5.4RLE_trim, "PCoA", distance="bray", sample.label="Treatment", taxa.label="Genus", low="#FFFFCC", high="#000033", na.value="white")
 
-plot_net(s16sV3V5.4hell_trim, maxdist=0.4, color="Slash_pile_number", shape="Depth_cm")
+plot_net(s16sV3V5.4RLE_trim, maxdist=0.4, color="Treatment", shape="Timepoint")
 
-hell.tip.labels <- as(get_variable(s16sV3V5.4hell, "Slash_pile_number"), "character")
+hell.tip.labels <- as(get_variable(s16sV3V5.4RLE, "Treatment"), "character")
 # This is the actual hierarchical clustering call, specifying average-linkage clustering
-d <- distance(s16sV3V5.4hell_trim, method="bray", type="samples")
-hell.hclust     <- hclust(d, method="average")
-plot(hell.hclust)
+d <- distance(s16sV3V5.4RLE_trim, method="bray", type="samples")
+RLE.hclust     <- hclust(d, method="average")
+plot(RLE.hclust)
 
 #Lets write out a plot
 pdf("My_dendro.pdf", width=7, height=7, pointsize=8)
-plot(hell.hclust)
+plot(RLE.hclust)
 dev.off()
 
 png("My_dendro.png", width = 7, height = 7, res=300, units = "in")
-plot(hell.hclust)
+plot(RLE.hclust)
 dev.off()
 ```
 
 ## Ordination
 
-```{r  fig.width=10, fig.height=8}
-v4.hell.ord <- ordinate(s16sV3V5.4hell_trim, "NMDS", "bray")
-p1 = plot_ordination(s16sV3V5.4hell_trim, v4.hell.ord, type="taxa", color="Phylum", title="taxa")
+```{r fig.width=6, fig.height=8}
+v4.RLE.ord <- ordinate(s16sV3V5.4RLE_trim, "NMDS", "bray")
+p1 = plot_ordination(s16sV3V5.4RLE_trim, v4.RLE.ord, type="taxa", color="Phylum", title="taxa")
 print(p1)
 p1 + facet_wrap(~Phylum, 5)
-p2 = plot_ordination(s16sV3V5.4hell_trim, v4.hell.ord, type="samples", color="Depth_cm", shape="Slash_pile_number")
+p2 = plot_ordination(s16sV3V5.4RLE_trim, v4.RLE.ord, type="samples", color="Timepoint", shape="Treatment")
 p2
-p2 + geom_polygon(aes(fill=Slash_pile_number)) + geom_point(size=5) + ggtitle("samples")
-p2
-
-p2 = plot_ordination(s16sV3V5.4hell_trim, v4.hell.ord, type="biplot", color="Depth_cm", shape="Slash_pile_number")
+p2 + geom_polygon(aes(fill=Treatment)) + geom_point(size=5) + ggtitle("samples")
 p2
 
-write.table(otu_table(s16sV3V5.4hell_trim), file = "hell_stand_results_otu.txt",sep="\t")
+p2 = plot_ordination(s16sV3V5.4RLE_trim, v4.RLE.ord, type="biplot", color="Timepoint", shape="Treatment") +
+                     scale_shape_manual(values=1:7)
+p2
+
+write.table(otu_table(s16sV3V5.4RLE_trim), file = "RLE_stand_results_otu.txt",sep="\t")
 ```
 
 Now try doing oridination with other transformations, such as relative abundance, log. Also looks and see if you can find any trends in the variable Dist_from_edge.
@@ -268,19 +309,22 @@ Now try doing oridination with other transformations, such as relative abundance
 
 For differential abundances we use RNAseq pipeline EdgeR and limma voom.
 
-```{r  fig.width=10, fig.height=8}
-library("edgeR")
-
-m = as(otu_table(s16sV3V5.4hell_trim), "matrix")
-# Add one to protect against overflow, log(0) issues.
-#m = m + 1
+```{r fig.width=6, fig.height=8}
+m = as(otu_table(s16sV3V5.4), "matrix")
 # Define gene annotations (`genes`) as tax_table
-taxonomy = tax_table(s16sV3V5.4hell_trim, errorIfNULL=FALSE)
+taxonomy = tax_table(s16sV3V5.4, errorIfNULL=FALSE)
 if( !is.null(taxonomy) ){
   taxonomy = data.frame(as(taxonomy, "matrix"))
 }
 # Now turn into a DGEList
 d = DGEList(counts=m, genes=taxonomy, remove.zeros = TRUE)
+
+## reapply filter
+prop  = transform_sample_counts(s16sV3V5.4, function(x) x / sum(x) )
+keepTaxa <- ((apply(otu_table(prop) >= 0.005,1,sum,na.rm=TRUE) > 2) | (apply(otu_table(prop) >= 0.05, 1, sum,na.rm=TRUE) > 0))
+table(keepTaxa)
+d <- d[keepTaxa,]
+
 
 # Calculate the normalization factors
 z = calcNormFactors(d, method="RLE")
@@ -290,18 +334,18 @@ if( !all(is.finite(z$samples$norm.factors)) ){
        non-finite $norm.factors, consider changing `method` argument")
 }
 
-plotMDS(z, col = as.numeric(factor(sample_data(s16sV3V5.4)$Slash_pile_number)), labels = sample_names(s16sV3V5.4), cex=0.5)
+plotMDS(z, col = as.numeric(factor(sample_data(s16sV3V5.4)$Treatment)), labels = sample_names(s16sV3V5.4), cex=0.5)
 
-# Creat a model based on Slash_pile_number and depth
-mm <- model.matrix( ~ Slash_pile_number + Depth_cm, data=data.frame(as(sample_data(s16sV3V5.4),"matrix"))) # specify model with no intercept for easier contrasts
+# Creat a model based on Treatment and depth
+mm <- model.matrix( ~ Treatment + Timepoint, data=data.frame(as(sample_data(s16sV3V5.4),"matrix"))) # specify model with no intercept for easier contrasts
 mm
 y <- voom(d, mm, plot = T)
 
 fit <- lmFit(y, mm)
 head(coef(fit))
 
-# single contrast comparing Depth_cm 5 - 20
-contr <- makeContrasts(Depth5v10 = "Depth_cm5",
+# single contrast comparing Timepoint 5 - 20
+contr <- makeContrasts(TimpointT2vT1 = "TimepointT2",
                        levels = colnames(coef(fit)))
 tmp <- contrasts.fit(fit, contr)
 tmp <- eBayes(tmp)
@@ -309,13 +353,13 @@ tmp2 <- topTable(tmp, coef=1, sort.by = "P", n = Inf)
 tmp2$Taxa <- rownames(tmp2)
 tmp2 <- tmp2[,c("Taxa","logFC","AveExpr","P.Value","adj.P.Val")]
 length(which(tmp2$adj.P.Val < 0.05)) # number of Differentially abundant taxa
-# 0
+# 48
 sigtab = cbind(as(tmp2, "data.frame"), as(tax_table(s16sV3V5.4)[rownames(tmp2), ], "matrix"))
 ```
 
 ## One last plot
 
-```{r fig.width=14, fig.height=8}
+```{r fig.width=8, fig.height=8}
 theme_set(theme_bw())
 scale_fill_discrete <- function(palname = "Set1", ...) {
     scale_fill_brewer(palette = palname, ...)
