@@ -28,7 +28,7 @@
 
 ## Workshop Week 2 reservation
 
-**workshop       ACTIVE  2019-08-19T00:00:00  2019-08-31T00:00:00  12-00:00:00  rafter-[0,2,8,14,18]**
+**workshop       ACTIVE  2019-08-19T00:00:00  2019-09-14T00:00:00  12-00:00:00  rafter-[0,2,8,14,18]**
 
 My recommendation is to follow all of the instructions again, from the beginning on your own and send emails to
 

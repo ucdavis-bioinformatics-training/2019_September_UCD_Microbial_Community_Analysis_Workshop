@@ -46,6 +46,9 @@ navigation:
   - title: dbcAmplicons - Data processing
     url: dbcAmplicons/dbcAmplicons_commands
 
+  - heading: dbcAmplicons w/Dada2
+  - title: Coming soon
+
   - heading: Microbial Community Analysis in R
   - title: Prepare MCA Analysis
     url: MCA_Workshop_R/prepare_phyloseq
